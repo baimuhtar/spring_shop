@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Show product with options and values</title>
+</head>
+<body>
+<div class="container">
+    <form method="get" th:action="@{product/show}">
+    <p>Category</p>
+        <p th:text="${product.getCategory.getName}" ></p>
+    <p>Product name</p>
+        <p th:text="${product.getName}" ></p>
+    <p>Product price</p>
+        <p th:text="${product.getPrice}"></p>
+    <p>Product options</p>
+        <p th:text="${product.getCategory().getOptions()} + '' + ${product.getValues()}"></p>
+
+
+    </form>
+</div>
+
+</body>
+</html>

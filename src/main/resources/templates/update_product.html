@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Product</title>
+</head>
+<body>
+<h2>Update product</h2>
+<form th:action="@{/product/edit}" method="post">
+    <div class="form-check">
+        <input type="hidden" name="productId" th:value="${product.getId()}">
+        <p>Write new product name:
+            <input
+                    type="text"
+                    name="newName"
+                    th:value="${product.getName()}"
+                    required>
+        </p>
+        <p> Write new product price:
+            <input
+                    type="number"
+                    th:value="${product.getPrice()}"
+                    name="newPrice"
+                    required>
+        </p>
+        <p>Write new Values:</p>
+
+    </div>
+    <div th:each="value : ${product.getValues()}">
+        <input type="hidden" name="option" th:value="${value.getOption().getId()}">
+        <p th:text="${value.getOption().getName()}"></p>
+        <input type="text"
+               name="value"
+               th:value="${value.getValue()}"
+               required>
+    </div>
+    <button type="submit">Add to catalog</button>
+</form>
+</body>
+</html>

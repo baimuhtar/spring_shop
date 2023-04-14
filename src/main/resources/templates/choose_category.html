@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Product</title>
+</head>
+<body>
+<h2>Create product</h2>
+<form action="/product/add_product" method="get">
+    <div class="form-check">
+        <b>Choose category:</b>
+        <p th:each="category : ${categories}">
+            <label class="form-check-label" th:for="${category.getId()}"></label>
+            <input class="form-check-input"
+                   type="radio"
+                   name="categoryId"
+                   th:value="${category.getId()}"
+                   th:id="${category.getId()}"
+                   th:text="${category.getName()}"
+                   required>
+
+        </p>
+        <button type="submit">Submit</button>
+
+    </div>
+</form>
+</body>
+</html>

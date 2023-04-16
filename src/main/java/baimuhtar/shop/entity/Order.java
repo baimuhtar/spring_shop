@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -23,6 +24,6 @@ public class Order {
     private List<Product> productsList;
     private OrderStatus orderStatus;
     private String deliveryAddress;
-    private LocalDateTime setOrderTime;
+    private LocalDateTime orderTime;
 
 }

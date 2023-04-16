@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,16 +20,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private Role role;
     private String login;
     private String password;
     private String name;
     private String surname;
-    private Date registrationDate;
+    private LocalDateTime registrationDate;
 
-    @OneToMany()
-    @JoinColumn(name = "feedback_id")
+    @OneToMany(mappedBy = "user")
     private List<Feedback> userFeedbacks;
-
 }

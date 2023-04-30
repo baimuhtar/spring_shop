@@ -1,5 +1,6 @@
 package baimuhtar.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import jakarta.persistence.*;
@@ -26,8 +27,15 @@ public class Product {
 
     private Integer price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<Value> values;
 
+    @JsonIgnore
+    @OneToMany
+    private List<Feedback> feedbacks;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<OrderProduct> orderProducts;
 }

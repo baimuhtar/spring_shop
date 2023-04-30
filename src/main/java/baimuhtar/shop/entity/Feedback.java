@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Entity
 @Table(name = "feedbacks")
 public class Feedback {
     @Id
@@ -27,11 +27,15 @@ public class Feedback {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private boolean published;
+    @Column(name = "is_published")
+    private boolean isPublished;
 
+    @Column(name = "score_feedback")
     private int scoreFeedback;
 
+    @Column(name = "text_feedback")
     private String textFeedback;
 
+    @Column(name = "published_date")
     private LocalDateTime publishedDate;
 }

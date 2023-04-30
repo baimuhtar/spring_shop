@@ -1,11 +1,12 @@
 package baimuhtar.shop.controller;
 
-import baimuhtar.shop.entity.Category;
-import baimuhtar.shop.entity.Option;
+
 import baimuhtar.shop.entity.Product;
+import baimuhtar.shop.entity.User;
 import baimuhtar.shop.repository.CategoryRepository;
-import baimuhtar.shop.repository.OptionRepository;
 import baimuhtar.shop.repository.ProductRepository;
+import baimuhtar.shop.repository.UserRepository;
+import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class ProductList {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/list")
     public String productListPage(Model model, @RequestParam(required = false) Long categoryId) {
@@ -34,7 +37,9 @@ public class ProductList {
         } else {
             products = productRepository.findAll(sort);
         }
+        User user = userService.getCurrentUser();
         model.addAttribute("products", products);
+        model.addAttribute("user", user);
         return "product_list";
     }
 }

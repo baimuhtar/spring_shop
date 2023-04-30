@@ -26,9 +26,7 @@
 
         <div th:each="option : ${category.options}">
             <p th:text="${option.name}"></p>
-
             <input type="hidden" name="option" th:value="${option.id}">
-
             <input type="text"
                    name="value"
                    placeholder="Enter product value"

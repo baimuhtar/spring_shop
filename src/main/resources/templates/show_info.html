@@ -10,15 +10,17 @@
 <body>
 <div class="container">
     <form method="get" th:action="@{product/show}">
-    <p>Category</p>
-        <p th:text="${product.getCategory.getName}" ></p>
-    <p>Product name</p>
-        <p th:text="${product.getName}" ></p>
-    <p>Product price</p>
+        <input type="hidden" name="product_id" th:value="${product.id}">
+        <p><b>Категория</b></p>
+        <p th:text="${product.getCategory.getName}"></p>
+        <p><b>Наименование</b></p>
+        <p th:text="${product.getName}"></p>
+        <p><b>Цена</b></p>
         <p th:text="${product.getPrice}"></p>
-    <p>Product options</p>
-        <p th:text="${product.getCategory().getOptions()} + '' + ${product.getValues()}"></p>
-
+        <p><b>Характеристики</b></p>
+        <div th:each="value : ${values}">
+        <p th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></p>
+        </div>
 
     </form>
 </div>

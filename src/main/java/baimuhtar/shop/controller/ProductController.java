@@ -8,26 +8,23 @@ import baimuhtar.shop.repository.CategoryRepository;
 import baimuhtar.shop.repository.OptionRepository;
 import baimuhtar.shop.repository.ProductRepository;
 import baimuhtar.shop.repository.ValueRepository;
+import baimuhtar.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller()
 @RequestMapping(path = "/product")
-public class CreateProduct {
+public class ProductController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private OptionRepository optionRepository;
-    @Autowired
-    private ValueRepository valueRepository;
+    private ProductService productService;
 
     @GetMapping("/choose_category")
     public String categoryForm(Model model) {
@@ -45,37 +42,18 @@ public class CreateProduct {
 
     @PostMapping("/add_product")
     public String createProductForm(
-            @RequestParam Long categoryId,
-            @RequestParam String product_name,
-            @RequestParam Integer product_price,
-            @RequestParam("option") List<Long> optionsId,
+            @RequestParam Long categoryId, @RequestParam String product_name,
+            @RequestParam Integer product_price, @RequestParam("option") List<Long> optionsId,
             @RequestParam("value") List<String> valuesName) {
 
-        Category category = categoryRepository.findById(categoryId).orElseThrow();
-
-        Product product = new Product();
-        product.setCategory(category);
-        product.setName(product_name);
-        product.setPrice(product_price);
-        productRepository.save(product);
-
-        for (int i = 0; i < optionsId.size(); i++) {
-            Option option = optionRepository.findById(optionsId.get(i)).orElseThrow();
-            Value value = new Value();
-            value.setProduct(product);
-            value.setOption(option);
-            value.setValue(valuesName.get(i));
-            valueRepository.save(value);
-        }
-
-        System.out.println("Name: " + product_name + "\n" + "Price: " + product_price + '\n' + "Объект успешно создан");
-        System.out.printf("%s:", product.getName());
-        System.out.printf("%d:", product.getPrice());
-        System.out.println(product.getCategory().getOptions());
-        System.out.println(product.getValues());
-
+        productService.addProductToList(categoryId, product_name,
+                product_price, optionsId, valuesName);
         return "redirect:/product/list";
     }
-
+    @GetMapping("/delete")
+    public String deleteProduct(@RequestParam Long productId) {
+        productService.deleteProduct(productId);
+        return "redirect:/product/list";
+    }
 }
 

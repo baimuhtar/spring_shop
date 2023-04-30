@@ -1,7 +1,6 @@
 package baimuhtar.shop.controller;
 
 import baimuhtar.shop.entity.User;
-import baimuhtar.shop.repository.UserRepository;
 import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping()
-public class CreateUser {
+public class UserController {
 
     @Autowired
     private UserService userService;

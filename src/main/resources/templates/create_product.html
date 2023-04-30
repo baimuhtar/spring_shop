@@ -8,19 +8,19 @@
     <title>Create Product</title>
 </head>
 <body>
-<h2>Create product</h2>
+<h2>Создание товара</h2>
 <form th:action="@{/product/add_product}" method="post">
     <input type="hidden" name="categoryId" th:value="${category.id}">
     <div>
-        <p>Write product name:</p>
+        <p>Впишите название товара:</p>
         <input type="text"
-               name="product_name"
-               id="product_name"
+               name="productName"
+               id="productName"
                placeholder="Enter product name"
                required>
-        <p> Write product price:</p>
+        <p>Впишите цену товара:</p>
             <input type="text"
-                   name="product_price"
+                   name="productPrice"
                    placeholder="Enter product price"
                    required>
 
@@ -32,7 +32,7 @@
                    placeholder="Enter product value"
                    required>
         </div>
-        <button type="submit">Add to catalog</button>
+        <button type="submit">Добавить в каталог</button>
     </div>
 </form>
 </body>

@@ -8,25 +8,25 @@
     <title>Create Product</title>
 </head>
 <body>
-<h2>Update product</h2>
+<h2>Обновление товара</h2>
 <form th:action="@{/product/edit}" method="post">
     <div class="form-check">
         <input type="hidden" name="productId" th:value="${product.getId()}">
-        <p>Write new product name:
+        <p>Впишите новое название товара:
             <input
                     type="text"
-                    name="newName"
+                    name="productName"
                     th:value="${product.getName()}"
                     required>
         </p>
-        <p> Write new product price:
+        <p>Впишите новую цену товара:
             <input
                     type="number"
                     th:value="${product.getPrice()}"
-                    name="newPrice"
+                    name="productPrice"
                     required>
         </p>
-        <p>Write new Values:</p>
+        <p>Впишите новые значения характеристик:</p>
 
     </div>
     <div th:each="value : ${product.getValues()}">
@@ -37,7 +37,7 @@
                th:value="${value.getValue()}"
                required>
     </div>
-    <button type="submit">Add to catalog</button>
+    <button type="submit">Добавить в каталог</button>
 </form>
 </body>
 </html>

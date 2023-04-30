@@ -51,6 +51,24 @@ public class ProductService {
         }
     }
 
+    public void updateProduct(Long productId, String productName, Integer productPrice,
+                              List<Long> optionsId, List<String> values) {
+
+        Product product = productRepository.findById(productId).orElseThrow();
+        if (productName != null) product.setName(productName);
+        if (productPrice != null) product.setPrice(productPrice);
+        productRepository.save(product);
+
+        for (int i = 0; i < optionsId.size(); i++) {
+            List<Option> options = optionRepository.findAllById(optionsId);
+            Value value = valueRepository.findValuesByOptionAndProductId(options.get(i), productId);
+            value.setProduct(product);
+            value.setOption(options.get(i));
+            value.setValue(values.get(i));
+            valueRepository.save(value);
+        }
+    }
+
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }

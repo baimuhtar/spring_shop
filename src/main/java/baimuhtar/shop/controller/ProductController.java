@@ -34,7 +34,7 @@ public class ProductController {
 
 
     @GetMapping("/list")
-    public String productListPage(@RequestParam Long categoryId, Model model) {
+    public String productListPage(@RequestParam(required = false) Long categoryId, Model model) {
         List<Product> products;
         Sort sort = Sort.by(Sort.Order.by("category"));
 
@@ -76,7 +76,6 @@ public class ProductController {
     public String updateProductForm(@RequestParam Long productId, Model model){
         Product product = productRepository.findById(productId).orElseThrow();
         List<Category> categories = categoryRepository.findAll();
-
         model.addAttribute("product", product);
         model.addAttribute("categories", categories);
 
@@ -95,7 +94,7 @@ public class ProductController {
     @GetMapping("/show")
     public String showInfo(@RequestParam Long productId, Model model){
         Product product = productRepository.findById(productId).orElseThrow();
-        List<Value> values = valueRepository.findById(productId).orElseThrow().getProduct().getValues();
+        List<Value> values = productRepository.findById(productId).orElseThrow().getValues();
         model.addAttribute("product", product);
         model.addAttribute("values", values);
 

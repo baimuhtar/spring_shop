@@ -38,4 +38,5 @@ public class Feedback {
 
     @Column(name = "published_date")
     private LocalDateTime publishedDate;
+
 }

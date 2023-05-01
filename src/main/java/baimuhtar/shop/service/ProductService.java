@@ -1,13 +1,7 @@
 package baimuhtar.shop.service;
 
-import baimuhtar.shop.entity.Category;
-import baimuhtar.shop.entity.Option;
-import baimuhtar.shop.entity.Product;
-import baimuhtar.shop.entity.Value;
-import baimuhtar.shop.repository.CategoryRepository;
-import baimuhtar.shop.repository.OptionRepository;
-import baimuhtar.shop.repository.ProductRepository;
-import baimuhtar.shop.repository.ValueRepository;
+import baimuhtar.shop.entity.*;
+import baimuhtar.shop.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +23,16 @@ public class ProductService {
     @Autowired
     private ValueRepository valueRepository;
 
+    @Autowired
+    private FeedbackRepository feedbackRepository;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
+
+    public void showProductListPage(Long categoryId) {
+
+    }
 
     public void addProductToList(Long categoryId, String productName, Integer productPrice,
                                  List<Long> optionsId, List<String> values) {
@@ -42,7 +46,7 @@ public class ProductService {
         productRepository.save(product);
 
         for (int i = 0; i < optionsId.size(); i++) {
-            Option option = optionRepository.findById(categoryId).orElseThrow();
+            Option option = optionRepository.findById(optionsId.get(i)).orElseThrow();
             Value value = new Value();
             value.setProduct(product);
             value.setOption(option);
@@ -70,6 +74,10 @@ public class ProductService {
     }
 
     public void deleteProduct(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow();
+        valueRepository.deleteAll(product.getValues());
+        feedbackRepository.deleteAll(product.getFeedbacks());
+        cartItemRepository.deleteById(productId);
         productRepository.deleteById(productId);
     }
 }

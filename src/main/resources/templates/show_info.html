@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <form method="get" th:action="@{product/show}">
-        <input type="hidden" name="product_id" th:value="${product.id}">
+        <input type="hidden" name="productId" th:value="${product.id}">
         <p><b>Категория</b></p>
         <p th:text="${product.getCategory.getName}"></p>
         <p><b>Наименование</b></p>
@@ -21,7 +21,6 @@
         <div th:each="value : ${values}">
         <p th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></p>
         </div>
-
     </form>
 </div>
 

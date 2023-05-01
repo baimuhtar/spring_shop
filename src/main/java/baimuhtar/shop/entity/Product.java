@@ -32,10 +32,14 @@ public class Product {
     private List<Value> values;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "product")
     private List<Feedback> feedbacks;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<OrderProduct> orderProducts;
+
+//    @ManyToOne()
+//    @JoinColumn(name = "cartItemId")
+//    private CartItem cartItem;
 }

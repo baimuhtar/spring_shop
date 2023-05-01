@@ -22,6 +22,5 @@ public class OrderProduct {
     @JoinColumn(name = "order_id")
     private Order order;
 
-
     private int quantity;
 }

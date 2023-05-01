@@ -8,6 +8,7 @@ import baimuhtar.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class CartItemService {
 
@@ -43,9 +44,14 @@ public class CartItemService {
 
     public void decreaseByOne(Long cartItemId) {
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow();
+
         cartItem.setQuantity(cartItem.getQuantity() - 1);
+        if (cartItem.getQuantity() <= 0) {
+            cartItem.setQuantity(+1);
+        }
         cartItemRepository.save(cartItem);
     }
+
 
     public void deleteItemFromCart(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);

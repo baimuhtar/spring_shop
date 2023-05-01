@@ -59,7 +59,8 @@
 
 <div class="make-order">
     <div class="row">
-        <form th:action="@{/make_order}">
+        <form th:action="@{/make_order}" method="post">
+            <input type="hidden" name="deliveryAddress" th:value="${deliveryAddress}">
             <button type="submit">Оформить заказ</button>
         </form>
     </div>

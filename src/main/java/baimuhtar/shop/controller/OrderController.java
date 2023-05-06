@@ -1,5 +1,6 @@
 package baimuhtar.shop.controller;
 
+import baimuhtar.shop.entity.Order;
 import baimuhtar.shop.entity.OrderStatus;
 import baimuhtar.shop.repository.OrderRepository;
 import baimuhtar.shop.service.OrderService;
@@ -31,5 +32,17 @@ public class OrderController {
     public String makeOrder(@RequestParam String deliveryAddress){
         orderService.makeOrder(deliveryAddress);
         return "redirect:/user_cart";
+    }
+
+    @GetMapping("/change_status")
+    public String chooseOrderStatus(@RequestParam Long orderId, @RequestParam OrderStatus orderStatus, Model model) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        model.addAttribute("order", order);
+        return "cart";
+    }
+    @PostMapping ("/change_status")
+    public String changeStatus(@RequestParam Long orderId) {
+        orderService.changeStatus(orderId);
+        return "redirect:/product/list";
     }
 }

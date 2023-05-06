@@ -41,4 +41,9 @@ public class OrderService {
             orderProductRepository.save(orderProduct);
         }
     }
+    public void changeStatus(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.setOrder_status(order.getOrder_status());
+        orderRepository.save(order);
+    }
 }

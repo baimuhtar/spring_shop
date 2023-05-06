@@ -32,5 +32,4 @@ public class UserService {
         user.setRole(Role.USER);
         userRepository.save(user);
     }
-
 }

@@ -55,7 +55,7 @@ create table feedbacks
     id            serial8,
     user_id       int8 not null,
     product_id    int8 not null,
-    is_published     int2,
+    is_published     bool,
     score_feedback int2,
     text_feedback  varchar,
     published_date timestamp,

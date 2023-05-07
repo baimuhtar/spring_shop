@@ -30,19 +30,16 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Dropdown
+                        Меню
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Мои заказы</a></li>
+                        <li><a th:href="@{/user_cart}">Моя корзина</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a th:href="@{/logout}">Выйти из аккаунта</a></li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -71,6 +68,11 @@
             </td>
             <td th:text="${product.getPrice()}">
             </td>
+<!--
+isAuthenicated() -> авторизован
+hasRole() -> есть ли роль
+-->
+<!--            <td th:if="${#authorization.expr('hasRole(''admin'')')}">-->
             <td>
                 <a th:href="@{/product/update(productId=${product.id})}"
                    class="btn btn-warning">Изменить</a>
@@ -99,9 +101,6 @@
                 <button type="submit" class="btn btn-info" onclick="window.location.href = '/adduser'">Добавить
                     пользователя
                 </button>
-                <div class="col">
-                    <button type="submit" onclick="window.location.href = '/user_cart'"> Корзина</button>
-                </div>
             </div>
         </div>
     </div>

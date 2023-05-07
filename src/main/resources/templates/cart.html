@@ -49,6 +49,17 @@
     </div>
 </div>
 
+
+
+<div class="make-order">
+    <div class="row">
+        <form th:action="@{/make_order}" method="post">
+            <input type="text" name="deliveryAddress" th:value="${deliveryAddress}" placeholder="Впишите адрес доставки">
+            <button type="submit">Оформить заказ</button>
+        </form>
+    </div>
+</div>
+
 <div class="back-button">
     <div class="row">
         <form th:action="@{/product/list}">
@@ -57,14 +68,7 @@
     </div>
 </div>
 
-<div class="make-order">
-    <div class="row">
-        <form th:action="@{/make_order}" method="post">
-            <input type="hidden" name="deliveryAddress" th:value="${deliveryAddress}">
-            <button type="submit">Оформить заказ</button>
-        </form>
-    </div>
-</div>
+
 
 <!--<div class="change_status">-->
 <!--    <div class="row">-->

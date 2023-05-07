@@ -19,9 +19,30 @@
         <p th:text="${product.getPrice}"></p>
         <p><b>Характеристики</b></p>
         <div th:each="value : ${values}">
-        <p th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></p>
+            <p th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></p>
         </div>
     </form>
+</div>
+
+<div class="feedback">
+    <div class="row"> Ваш отзыв о товаре
+        <form method="post" th:action="@{/feedback}">
+            <input type="hidden" name="productId" th:value="${product.id}">
+            <input type="text" name="textFeedback" placeholder="Ваш отзыв" th:value="${feedback.textFeedback}">
+            <input type="number" name="score" placeholder="Оценка" th:value="${feedback.scoreFeedback}">
+            <input type="submit">
+        </form>
+    </div>
+</div>
+
+<div class="all_feedbacks">
+    <div class="row">
+        <span>Все отзывы о данном товаре:</span>
+            <div th:each="feedback : ${feedbacks}">
+                <br>
+                <span th:text="${feedback.getTextFeedback()}"></span>
+            </div>
+    </div>
 </div>
 
 </body>

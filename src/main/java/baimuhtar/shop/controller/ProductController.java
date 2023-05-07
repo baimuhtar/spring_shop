@@ -18,6 +18,9 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    private FeedbackRepository feedbackRepository;
+
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
@@ -73,7 +76,7 @@ public class ProductController {
     }
 
     @GetMapping("/update")
-    public String updateProductForm(@RequestParam Long productId, Model model){
+    public String updateProductForm(@RequestParam(required = false) Long productId, Model model){
         Product product = productRepository.findById(productId).orElseThrow();
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("product", product);
@@ -92,11 +95,14 @@ public class ProductController {
     }
 
     @GetMapping("/show")
-    public String showInfo(@RequestParam Long productId, Model model){
+    public String showInfo(@RequestParam Long productId, Feedback feedback,Model model){
         Product product = productRepository.findById(productId).orElseThrow();
         List<Value> values = productRepository.findById(productId).orElseThrow().getValues();
+        List<Feedback> feedbacks = feedbackRepository.findAllByProductId(productId);
         model.addAttribute("product", product);
         model.addAttribute("values", values);
+        model.addAttribute("feedbacks", feedbacks);
+        model.addAttribute("feedback", feedback);
 
         return "show_info";
     }

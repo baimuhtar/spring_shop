@@ -29,10 +29,9 @@ public class ProductService {
     @Autowired
     private CartItemRepository cartItemRepository;
 
+    @Autowired
+    private OrderProductRepository orderProductRepository;
 
-    public void showProductListPage(Long categoryId) {
-
-    }
 
     public void addProductToList(Long categoryId, String productName, Integer productPrice,
                                  List<Long> optionsId, List<String> values) {

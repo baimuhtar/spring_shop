@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping
 public class OrderController {
@@ -23,26 +25,29 @@ public class OrderController {
     private OrderRepository orderRepository;
 
     @GetMapping("/make_order")
-    public String chooseAddressAndStatus(Model model, String deliveryAddress){
+    public String chooseAddressAndStatus(Model model, String deliveryAddress) {
         model.addAttribute("deliveryAddress", deliveryAddress);
         return "cart";
     }
 
     @PostMapping("/make_order")
-    public String makeOrder(@RequestParam String deliveryAddress){
+    public String makeOrder(@RequestParam String deliveryAddress) {
         orderService.makeOrder(deliveryAddress);
         return "redirect:/user_cart";
     }
 
     @GetMapping("/change_status")
-    public String chooseOrderStatus(@RequestParam Long orderId, @RequestParam OrderStatus orderStatus, Model model) {
+    public String chooseOrderStatus(@RequestParam Long orderId, @RequestParam Long userId, @RequestParam OrderStatus orderStatus, Model model) {
         Order order = orderRepository.findById(orderId).orElseThrow();
+        List<Order> orders = orderRepository.findAllByUserId(userId);
         model.addAttribute("order", order);
-        return "cart";
+        model.addAttribute("orders", orders);
+        return "user_orders";
     }
-    @PostMapping ("/change_status")
+
+    @PostMapping("/change_status")
     public String changeStatus(@RequestParam Long orderId) {
         orderService.changeStatus(orderId);
-        return "redirect:/product/list";
+        return "redirect:/user_orders";
     }
 }

@@ -24,8 +24,7 @@ public class OrderService {
 
 
     public void makeOrder(String deliveryAddress) {
-        List<CartItem> cartItems = cartItemRepository.findByUser(userService.getCurrentUser());
-
+        List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
         Order order = new Order();
         order.setUser(userService.getCurrentUser());
         order.setOrder_status(OrderStatus.SEND);

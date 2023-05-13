@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@Table(name = "roles")
 public enum Role {
 
     ADMIN("admin", "Администратор"),

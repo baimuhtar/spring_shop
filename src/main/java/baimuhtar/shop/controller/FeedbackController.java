@@ -17,7 +17,6 @@ public class FeedbackController {
 
     @PostMapping("/feedback")
     public String leaveFeedback(@RequestParam String textFeedback,@RequestParam Integer score, @RequestParam Long productId){
-
         feedbackService.leaveFeedback(textFeedback, score, productId);
         return "redirect:/product/list";
     }

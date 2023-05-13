@@ -8,6 +8,8 @@ import baimuhtar.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class CartItemService {
@@ -52,8 +54,22 @@ public class CartItemService {
         cartItemRepository.save(cartItem);
     }
 
-
     public void deleteItemFromCart(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);
+    }
+
+    public List<CartItem> getItemsByUserId() {
+        List<CartItem> cartItems =
+                cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
+        return cartItems;
+    }
+
+    public Integer priceOfAllProducts() {
+        Integer sum = 0;
+        List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
+        for (int i = 0; i < cartItems.size(); i++) {
+             sum += cartItems.get(i).getProduct().getPrice();
+        }
+        return sum;
     }
 }

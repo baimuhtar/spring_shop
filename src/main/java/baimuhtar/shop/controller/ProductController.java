@@ -5,7 +5,6 @@ import baimuhtar.shop.repository.*;
 import baimuhtar.shop.service.ProductService;
 import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,10 +85,10 @@ public class ProductController {
     }
     @PostMapping("/update")
     public String updateProduct(
-            @RequestParam Long categoryId, @RequestParam String productName,
+            @RequestParam Long productId, @RequestParam String productName,
             @RequestParam Integer productPrice, @RequestParam ("option") List<Long> optionsId,
             @RequestParam("value") List<String> values) {
-        productService.updateProduct(categoryId, productName, productPrice, optionsId, values);
+        productService.updateProduct(productId, productName, productPrice, optionsId, values);
         return "redirect:/product/list";
 
     }

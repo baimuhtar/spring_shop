@@ -1,11 +1,12 @@
 package baimuhtar.shop.controller;
 
-import baimuhtar.shop.entity.Order;
-import baimuhtar.shop.entity.OrderStatus;
+import baimuhtar.shop.entity.*;
+import baimuhtar.shop.repository.OrderProductRepository;
 import baimuhtar.shop.repository.OrderRepository;
+import baimuhtar.shop.service.CartItemService;
 import baimuhtar.shop.service.OrderService;
+import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +24,15 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CartItemService cartItemService;
 
-    @GetMapping("/make_order")
-    public String chooseAddressAndStatus(Model model, String deliveryAddress) {
-        model.addAttribute("deliveryAddress", deliveryAddress);
-        return "cart";
-    }
-
-    @PostMapping("/make_order")
-    public String makeOrder(@RequestParam String deliveryAddress) {
-        orderService.makeOrder(deliveryAddress);
-        return "redirect:/user_cart";
-    }
+@GetMapping("/user_orders")
+public String showOrders(Model model){
+    List<CartItem> cartItems = cartItemService.getItemsByUserId();
+    model.addAttribute("cartItems", cartItems);
+    return "user_orders";
+}
 
     @GetMapping("/change_status")
     public String chooseOrderStatus(@RequestParam Long orderId, @RequestParam Long userId, @RequestParam OrderStatus orderStatus, Model model) {
@@ -42,7 +40,7 @@ public class OrderController {
         List<Order> orders = orderRepository.findAllByUserId(userId);
         model.addAttribute("order", order);
         model.addAttribute("orders", orders);
-        return "user_orders";
+        return "redirect:/user_orders";
     }
 
     @PostMapping("/change_status")
@@ -50,4 +48,16 @@ public class OrderController {
         orderService.changeStatus(orderId);
         return "redirect:/user_orders";
     }
+    @GetMapping("/make_order")
+    public String chooseAddressAndStatus(Model model, String deliveryAddress) {
+        model.addAttribute("deliveryAddress", deliveryAddress);
+        return "user_orders";
+    }
+
+    @PostMapping("/make_order")
+    public String makeOrder(@RequestParam String deliveryAddress) {
+        orderService.makeOrder(deliveryAddress);
+        return "redirect:/user_orders";
+    }
+
 }

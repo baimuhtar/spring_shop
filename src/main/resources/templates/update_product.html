@@ -6,38 +6,89 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Create Product</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
 </head>
 <body>
-<h2>Обновление товара</h2>
-<form th:action="@{/product/edit}" method="post">
-    <div class="form-check">
-        <input type="hidden" name="productId" th:value="${product.getId()}">
-        <p>Впишите новое название товара:
-            <input
-                    type="text"
-                    name="productName"
-                    th:value="${product.getName()}"
-                    required>
-        </p>
-        <p>Впишите новую цену товара:
-            <input
-                    type="number"
-                    th:value="${product.getPrice()}"
-                    name="productPrice"
-                    required>
-        </p>
-        <p>Впишите новые значения характеристик:</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/product/list}">Каталог товаров</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Меню
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Мои заказы</a></li>
+                        <li><a class="dropdown-item" th:href="@{/user_cart}">Моя корзина</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">Выйти из аккаунта</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Название товара" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Поиск</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h2>Обновление товара</h2>
+    <form th:action="@{/product/update}" method="post">
+        <div class="form-check">
+            <input type="hidden" name="productId" th:value="${product.getId()}">
+            <div class="form-group">
+                <label for="productName">Название товара</label>
+                <input type="text" class="form-control" id="productName" name="productName"
+                       th:value="${product.getName()}" required>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Цена товара</label>
+                <input type="number" class="form-control" id="productPrice" name="productPrice"
+                       th:value="${product.getPrice()}" required>
+            </div>
+            <p>Впишите новые значения характеристик:</p>
 
-    </div>
-    <div th:each="value : ${product.getValues()}">
-        <input type="hidden" name="option" th:value="${value.getOption().getId()}">
-        <p th:text="${value.getOption().getName()}"></p>
-        <input type="text"
-               name="value"
-               th:value="${value.getValue()}"
-               required>
-    </div>
-    <button type="submit">Добавить в каталог</button>
-</form>
+            <div th:each="value : ${product.getValues()}">
+                <div class="form-group">
+                    <input type="hidden" name="option" th:value="${value.getOption().getId()}">
+                    <label for="value" th:text="${value.getOption().getName()}"></label>
+                    <input type="text" class="form-control" id="value" name="value"
+                           th:value="${value.getValue()}" required>
+                </div>
+            </div>
+            <br>
+            <div class="update_button">
+                <button type="submit" class="btn btn-primary">Обновить</button>
+            </div>
+        </div>
+        <br>
+
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-4U6KKiREzmJZU8cb+UcQyF/cTUpzMAxJcg7aLH9X54egnVq3lMY12cgrVJ1n+wuU"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js"
+        integrity="sha384-0z6xNra27g0XMjXGrH0Ivpzn2QWPw7V+hN0iIyAdV+xBxM1t8l1Rr6LvKVUvyyUA"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous">
+</script>
 </body>
 </html>

@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.springframework.web.service.annotation.GetExchange;
 
 @Getter
-@Table(name = "order_status")
 public enum OrderStatus {
     AVAILABLE("Доступен"),
     SEND("Отправлен"),

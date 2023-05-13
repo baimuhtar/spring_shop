@@ -1,11 +1,10 @@
 package baimuhtar.shop.controller;
 
 import baimuhtar.shop.entity.CartItem;
-import baimuhtar.shop.entity.Product;
 import baimuhtar.shop.entity.User;
 import baimuhtar.shop.repository.CartItemRepository;
-import baimuhtar.shop.repository.ProductRepository;
 import baimuhtar.shop.service.CartItemService;
+import baimuhtar.shop.service.OrderService;
 import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,12 +29,15 @@ public class CartItemController {
     @Autowired
     private CartItemService cartService;
 
+    @Autowired
+    private OrderService orderService;
+
     private
 
     @GetMapping(path = "/user_cart")
     String showUserCart(Model model) {
         User user = userService.getCurrentUser();
-        List<CartItem> cartItems = cartItemRepository.findByUser(user);
+        List<CartItem> cartItems = cartItemRepository.findAllByUserId(user.getId());
         model.addAttribute("cartItems", cartItems);
         return "cart";
     }
@@ -61,6 +63,12 @@ public class CartItemController {
     public String deleteItemFromCart(@RequestParam Long cartItemId) {
         cartService.deleteItemFromCart(cartItemId);
         return "redirect:/user_cart";
+    }
+    @GetMapping("/price")
+    public String showProductsPrice(Model model) {
+        Integer price = cartService.priceOfAllProducts();
+        model.addAttribute("price", price );
+        return "cart";
     }
 }
 

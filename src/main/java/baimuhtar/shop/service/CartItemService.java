@@ -64,12 +64,26 @@ public class CartItemService {
         return cartItems;
     }
 
-    public Integer priceOfAllProducts() {
-        Integer sum = 0;
+    public int getQuantityOfCartItems() {
+        int quantity = 0;
         List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
-        for (int i = 0; i < cartItems.size(); i++) {
-             sum += cartItems.get(i).getProduct().getPrice();
+        if (cartItems != null) {
+            for (CartItem cartItem : cartItems) {
+                quantity += cartItem.getQuantity();
+            }
         }
-        return sum;
+        return quantity;
+    }
+
+    public int getTotalPriceOfProducts(List<CartItem> cartItems) {
+        int totalPrice = 0;
+        for (CartItem cartItem : cartItems) {
+            totalPrice = totalPrice + getPrice(cartItem);
+        }
+        return totalPrice;
+    }
+
+    public int getPrice(CartItem cartItem) {
+       return cartItem.getProduct().getPrice() * cartItem.getQuantity();
     }
 }

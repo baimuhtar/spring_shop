@@ -1,11 +1,9 @@
 package baimuhtar.shop.controller;
 
 import baimuhtar.shop.entity.*;
-import baimuhtar.shop.repository.OrderProductRepository;
 import baimuhtar.shop.repository.OrderRepository;
 import baimuhtar.shop.service.CartItemService;
 import baimuhtar.shop.service.OrderService;
-import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -37,6 +37,6 @@ public class User {
     List<Feedback> feedbacks;
 
     public User(){
-
     }
+
 }

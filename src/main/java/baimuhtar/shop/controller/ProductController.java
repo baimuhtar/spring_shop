@@ -26,9 +26,6 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @Autowired
-    private ValueRepository valueRepository;
-
-    @Autowired
     private ProductService productService;
 
     @Autowired

@@ -54,25 +54,17 @@ public class CartItemService {
         cartItemRepository.save(cartItem);
     }
 
-    public void deleteItemFromCart(Long cartItemId) {
+    public void removeItemFromCart(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);
     }
 
-    public List<CartItem> getItemsByUserId() {
-        List<CartItem> cartItems =
-                cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
-        return cartItems;
+    public void removeAllItemsFromCart(Long userId) {
+        cartItemRepository.deleteAllByUserId(userId);
     }
 
-    public int getQuantityOfCartItems() {
-        int quantity = 0;
+    public List<CartItem> getItemsByUserId() {
         List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
-        if (cartItems != null) {
-            for (CartItem cartItem : cartItems) {
-                quantity += cartItem.getQuantity();
-            }
-        }
-        return quantity;
+        return cartItems;
     }
 
     public int getTotalPriceOfProducts(List<CartItem> cartItems) {
@@ -86,4 +78,5 @@ public class CartItemService {
     public int getPrice(CartItem cartItem) {
        return cartItem.getProduct().getPrice() * cartItem.getQuantity();
     }
+
 }

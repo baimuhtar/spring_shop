@@ -33,10 +33,9 @@ public class CartItemController {
         User user = userService.getCurrentUser();
         List<CartItem> cartItems = cartItemRepository.findAllByUserId(user.getId());
         model.addAttribute("cartItems", cartItems);
-
         int price = cartService.getTotalPriceOfProducts(cartItems);
         model.addAttribute("price", price);
-        return "/cart";
+        return "cart";
     }
 
     @PostMapping(path = "/addToCart")
@@ -48,18 +47,25 @@ public class CartItemController {
     @GetMapping("/increase")
     public String increaseByOne(@RequestParam Long cartItemId) {
         cartService.increaseByOne(cartItemId);
-        return "redirect:user_cart";
+        return "redirect:/user_cart";
     }
 
     @GetMapping("/decrease")
     public String decreaseByOne(@RequestParam Long cartItemId) {
         cartService.decreaseByOne(cartItemId);
-        return "redirect:user_cart";
+        return "redirect:/user_cart";
     }
-    @GetMapping("/deleteItem")
-    public String deleteItemFromCart(@RequestParam Long cartItemId) {
-        cartService.deleteItemFromCart(cartItemId);
-        return "redirect:user_cart";
+
+    @GetMapping("/removeItem")
+    public String removeItemFromCart(@RequestParam Long cartItemId) {
+        cartService.removeItemFromCart(cartItemId);
+        return "redirect:/user_cart";
+    }
+
+    @GetMapping("/removeAllItems")
+    public String removeAllItemsFromCart() {
+        cartService.removeAllItemsFromCart(userService.getCurrentUser().getId());
+        return "redirect:/user_cart";
     }
 }
 

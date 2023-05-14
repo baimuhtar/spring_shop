@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_orders.html")
+@Table(name = "orders.html")
 public class Order {
 
     @Id

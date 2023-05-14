@@ -29,7 +29,7 @@ public class OrderController {
 public String showOrders(Model model){
     List<CartItem> cartItems = cartItemService.getItemsByUserId();
     model.addAttribute("cartItems", cartItems);
-    return "user_orders";
+    return "orders";
 }
 
     @GetMapping("/change_status")
@@ -49,7 +49,7 @@ public String showOrders(Model model){
     @GetMapping("/make_order")
     public String chooseAddressAndStatus(Model model, String deliveryAddress) {
         model.addAttribute("deliveryAddress", deliveryAddress);
-        return "user_orders";
+        return "redirect:/user_orders";
     }
 
     @PostMapping("/make_order")

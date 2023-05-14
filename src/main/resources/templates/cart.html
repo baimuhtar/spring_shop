@@ -33,11 +33,18 @@
                                 <input type="hidden" name="cartItemId" th:value="${cartItem.getId()}">
                             </div>
                         </form>
-                        <form th:action="@{/deleteItem}" th:method="get">
+                        <form th:action="@{/removeItem}" th:method="get">
                             <div class="d-flex align-items-center">
                                 <button type="submit" class="btn btn-danger btn-sm mx-1">Удалить из корзины</button>
                                 <input type="hidden" name="cartItemId" th:value="${cartItem.getId()}">
                             </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="removeAllItems">
+                    <div class="removeAllItemsButton">
+                        <form th:action="@{/removeAllItems}" th:method="get">
+                        <button type="submit" class="btn btn-danger btn-sm mx-1">Удалить все товары</button>
                         </form>
                     </div>
                 </div>

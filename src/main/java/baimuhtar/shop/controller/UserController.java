@@ -30,7 +30,7 @@ public class UserController {
      userService.createUser(user);
      return "redirect:/product/list";
     }
-    @GetMapping("/user_profile")
+    @GetMapping("/profile")
     public String showUserProfile(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
         return "profile";

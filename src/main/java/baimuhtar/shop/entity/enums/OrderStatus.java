@@ -1,4 +1,4 @@
-package baimuhtar.shop.entity;
+package baimuhtar.shop.entity.enums;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

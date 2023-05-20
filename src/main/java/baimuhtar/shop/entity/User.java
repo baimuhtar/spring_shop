@@ -1,7 +1,7 @@
 package baimuhtar.shop.entity;
 
+import baimuhtar.shop.entity.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

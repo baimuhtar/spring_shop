@@ -44,5 +44,10 @@ public class FeedbackService {
         feedback.setPublished(true);
         feedbackRepository.save(feedback);
     }
+    public void postFeedback(long feedbackId) {
+        Feedback feedback = feedbackRepository.findById(feedbackId).orElseThrow();
+        feedback.setPublished(true);
+        feedbackRepository.save(feedback);
+    }
 
 }

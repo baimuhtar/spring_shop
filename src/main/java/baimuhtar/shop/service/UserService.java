@@ -1,6 +1,6 @@
 package baimuhtar.shop.service;
 
-import baimuhtar.shop.entity.Role;
+import baimuhtar.shop.entity.enums.Role;
 import baimuhtar.shop.entity.User;
 import baimuhtar.shop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,16 @@ public class UserService {
         user.setRegistrationDate(LocalDateTime.now());
         user.setRole(Role.USER);
         userRepository.save(user);
+    }
+
+    public boolean isActive() {
+        return getCurrentUser() != null;
+    }
+    public boolean isAdmin() {
+        if (isActive()) {
+            return getCurrentUser().getRole() == Role.ADMIN;
+        }
+        return true;
     }
 
 }

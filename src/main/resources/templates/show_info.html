@@ -13,6 +13,56 @@
 </head>
 <body>
 <header th:replace="navbar"></header>
+<!--<div class="container">-->
+<!--    <form method="get" th:action="@{product/show}">-->
+<!--        <input type="hidden" name="productId" th:value="${product.id}">-->
+<!--        <table class="table">-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td><b>Категория</b></td>-->
+<!--                <td><p class="form-control-plaintext" th:text="${product.getCategory.getName}"></p></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><b>Наименование</b></td>-->
+<!--                <td><p class="form-control-plaintext" th:text="${product.getName}"></p></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><b>Цена</b></td>-->
+<!--                <td><p class="form-control-plaintext" th:text="${product.getPrice}"></p></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><b>Характеристики</b></td>-->
+<!--                <td>-->
+<!--                    <div th:each="value : ${values}">-->
+<!--                        <p class="form-control-plaintext" th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></p>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </form>-->
+<!--</div>-->
+<!--<div class="container feedback">-->
+<!--    <div class="row">-->
+<!--        <h3 class="mb-3">Ваш отзыв о товаре</h3>-->
+<!--        <form method="post" th:action="@{/feedback}">-->
+<!--            <input type="hidden" name="productId" th:value="${product.id}">-->
+<!--            <table class="table">-->
+<!--                <tbody>-->
+<!--                <tr>-->
+<!--                    <td><label class="form-label">Ваш отзыв</label></td>-->
+<!--                    <td><input type="text" class="form-control" name="textFeedback" th:value="${feedback.textFeedback}" placeholder="Введите ваш отзыв"></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><label class="form-label">Оценка</label></td>-->
+<!--                    <td><input type="number" class="form-control" name="score" th:value="${feedback.scoreFeedback}" placeholder="Введите оценку"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--            <input type="submit" class="btn btn-primary">-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 <div class="container">
     <form method="get" th:action="@{product/show}">
         <input type="hidden" name="productId" th:value="${product.id}">

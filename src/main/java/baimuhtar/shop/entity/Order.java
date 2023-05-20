@@ -1,18 +1,17 @@
 package baimuhtar.shop.entity;
 
+import baimuhtar.shop.entity.enums.OrderStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "orders.html")
+@Table(name = "orders")
 public class Order {
 
     @Id

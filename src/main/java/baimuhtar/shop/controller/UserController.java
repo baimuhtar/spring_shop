@@ -1,15 +1,16 @@
 package baimuhtar.shop.controller;
 
+import baimuhtar.shop.entity.Order;
 import baimuhtar.shop.entity.User;
+import baimuhtar.shop.repository.FeedbackRepository;
+import baimuhtar.shop.service.FeedbackService;
+import baimuhtar.shop.service.OrderService;
 import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -19,6 +20,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private FeedbackService feedbackService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/adduser")
     public String addUser(Model model) {
@@ -34,5 +39,20 @@ public class UserController {
     public String showUserProfile(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
         return "profile";
+    }
+//    @GetMapping("/user/feedback/")
+//    public String userFeedbackPage(Model model) {
+//        model.addAttribute("feedbacks",feedbackService.getFeedbackByUser());
+//        return "user_feedback";
+//    }
+    @GetMapping("/user/feedback/delete")
+    public String deleteUserFeedback(@RequestParam Long feedbackId) {
+        feedbackService.deleteFeedback(feedbackId);
+        return "redirect:/user/feedback";
+    }
+    @GetMapping("/user/orders")
+    public String userOrderPage(Model model) {
+        model.addAttribute("orders", orderService.getOrdersByUser());
+    return "order";
     }
 }

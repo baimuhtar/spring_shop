@@ -1,6 +1,7 @@
 package baimuhtar.shop.repository;
 
 import baimuhtar.shop.entity.CartItem;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +11,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     CartItem findByUserIdAndProductId(Long userId, Long productId);
 
-    List<CartItem> findAllByUserId(Long userId);
+    List<CartItem> findAllByUserId(Long userId, Sort sort);
     @Transactional
     void deleteAllByUserId(Long userId);
 

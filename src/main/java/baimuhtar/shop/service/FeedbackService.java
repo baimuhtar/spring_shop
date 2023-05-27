@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class FeedbackService {
@@ -22,13 +23,11 @@ public class FeedbackService {
 
     public void leaveFeedback(String textFeedback, Integer score, Long productId) {
 
-        Product product = productRepository.findById(productId).orElseThrow();
-
         Feedback feedback = new Feedback();
         feedback.setUser(userService.getCurrentUser());
         feedback.setTextFeedback(textFeedback);
         feedback.setScoreFeedback(score);
-        feedback.setProduct(product);
+        feedback.setProduct(productRepository.findById(productId).orElseThrow());
         feedback.setPublishedDate(LocalDateTime.now());
         feedback.setPublished(false);
         feedbackRepository.save(feedback);
@@ -38,16 +37,24 @@ public class FeedbackService {
         Feedback feedback = feedbackRepository.findById(feedbackId).orElseThrow();
         feedbackRepository.delete(feedback);
     }
-
-    public void isFeedbackPublished(Long feedbackId) {
-        Feedback feedback = feedbackRepository.findById(feedbackId).orElseThrow();
-        feedback.setPublished(true);
-        feedbackRepository.save(feedback);
-    }
     public void postFeedback(long feedbackId) {
         Feedback feedback = feedbackRepository.findById(feedbackId).orElseThrow();
         feedback.setPublished(true);
         feedbackRepository.save(feedback);
     }
 
+    public List<Feedback> getFeedbackByUser(){
+        return feedbackRepository.findAllByUserOrderById(userService.getCurrentUser());
+    }
+
+    public Feedback findFeedback(Long productId) {
+        return feedbackRepository.findByUserIdAndProductId(userService.getCurrentUser().getId(), productId);
+    }
+
+    public List<Feedback> findAllIsPublishedTrue(Long productId) {
+        return feedbackRepository.findAllByProductIdAndIsPublishedTrue(productId);
+    }
+    public List<Feedback> findAllIsPublishedFalse() {
+        return feedbackRepository.findAllByIsPublishedFalse();
+    }
 }

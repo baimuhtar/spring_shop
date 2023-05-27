@@ -7,6 +7,7 @@ import baimuhtar.shop.service.CartItemService;
 import baimuhtar.shop.service.OrderService;
 import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,10 +36,11 @@ public class CartItemController {
     @GetMapping(path = "/cart")
     String showUserCart(Model model) {
         User user = userService.getCurrentUser();
-        List<CartItem> cartItems = cartItemRepository.findAllByUserId(user.getId());
+        Sort sort = Sort.by(Sort.Order.desc("quantity"));
+        List<CartItem> cartItems = cartItemRepository.findAllByUserId(user.getId(), sort);
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalPrice", cartService.getTotalPriceOfProducts(cartItems));
-//        model.addAttribute("address", address);
+        model.addAttribute("totalAmount", cartService.getTotalAmount(cartItems));
         return "cart";
     }
 

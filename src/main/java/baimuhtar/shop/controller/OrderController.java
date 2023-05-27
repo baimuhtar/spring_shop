@@ -1,15 +1,19 @@
 package baimuhtar.shop.controller;
 
 import baimuhtar.shop.entity.*;
+import baimuhtar.shop.entity.enums.OrderStatus;
 import baimuhtar.shop.repository.OrderRepository;
 import baimuhtar.shop.service.CartItemService;
 import baimuhtar.shop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.List;
@@ -20,18 +24,18 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private CartItemService cartItemService;
 
     @GetMapping("/order")
     public String showOrders(Model model) {
         model.addAttribute("orders", orderService.findOrder());
+        model.addAttribute("statuses", orderService.getAllOrderStatuses());
         return "order";
     }
-
-//    @PostMapping("/make_order")
-//    public String chooseAddressAndMakeOrder(@RequestParam String deliveryAddress) {
-//        orderService.makeOrder(deliveryAddress);
-//        return "redirect:/order";
-//    }
+    @GetMapping ("/change_status")
+    public String changeOrderStatus(@RequestParam Long orderId, @RequestParam String orderStatus) {
+        Sort sort = Sort.by(Sort.Order.desc("id"));
+        OrderStatus status = OrderStatus.valueOf(orderStatus);
+        orderService.changeStatus(orderId, status);
+        return "redirect:/order";
+    }
 }

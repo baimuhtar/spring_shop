@@ -6,6 +6,7 @@ import baimuhtar.shop.entity.User;
 import baimuhtar.shop.repository.CartItemRepository;
 import baimuhtar.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +47,6 @@ public class CartItemService {
 
     public void decreaseByOne(Long cartItemId) {
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow();
-
         cartItem.setQuantity(cartItem.getQuantity() - 1);
         if (cartItem.getQuantity() <= 0) {
             cartItem.setQuantity(+1);
@@ -62,11 +62,6 @@ public class CartItemService {
         cartItemRepository.deleteAllByUserId(userId);
     }
 
-    public List<CartItem> getItemsByUserId() {
-        List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
-        return cartItems;
-    }
-
     public int getTotalPriceOfProducts(List<CartItem> cartItems) {
         int totalPrice = 0;
         for (CartItem cartItem : cartItems) {
@@ -77,6 +72,14 @@ public class CartItemService {
 
     public int getPrice(CartItem cartItem) {
        return cartItem.getProduct().getPrice() * cartItem.getQuantity();
+    }
+
+    public int getTotalAmount(List <CartItem> cartItems) {
+        int totalAmount = 0;
+        for (CartItem cartItem : cartItems) {
+            totalAmount = totalAmount + cartItem.getQuantity();
+        }
+        return totalAmount;
     }
 
 }

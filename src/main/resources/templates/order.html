@@ -15,7 +15,7 @@
 <header th:replace="navbar"></header>
 <h2>Заказы:</h2>
 <div class="container">
-    <table class="table table-striped" >
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Товары</th>
@@ -27,15 +27,33 @@
         <tbody>
         <tr th:each="order : ${orders}">
             <td>
-                <span th:each="orderProduct : ${order.getOrderProducts()}" th:text="${orderProduct.getProduct().getName()}"></span>
+                <span th:each="orderProduct : ${order.getOrderProducts()}"
+                      th:text="${orderProduct.getProduct().getName()}"></span>
             </td>
-            <td th:text="${order.getOrder_status().name()}"> </td>
+            <td th:text="${order.getOrder_status().getStatus()}"></td>
             <td th:text="${order.getDeliveryAddress()}"></td>
             <td th:text="${order.getOrderTime()}"></td>
+            <td th:if="${#authorization.expr('hasRole(''admin'')')}"> <form th:action="@{/change_status}" method="get">
+                <div class="dropdown">
+                    <input type="hidden" name="orderId" th:value="${order.getId()}">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false"> Изменить статус заказа </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button type="submit" class="dropdown-item" name="orderStatus"
+                                th:each="status : ${statuses}"
+                                th:text="${status.getStatus()}"
+                                th:value="${status.name()}"
+                                ></button>
+                    </div>
+                </div>
+            </form>
+            </td>
         </tr>
         </tbody>
     </table>
-<!--    th:if="${#authorization.expr('hasRole(''adminl'')')}"-->
 </div>
 </body>
 </html>
+<!--<td><button th:each="status : ${orderStatus}"></button>-->
+<!--    <a th:href="@{/change_status(orderId=${order.id})}" class="btn btn-sm btn-primary">Изменить статус заказа</a></td>-->
+<!--    th:if="${#authorization.expr('hasRole(''admin'')')}"-->

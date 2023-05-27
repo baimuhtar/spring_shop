@@ -4,6 +4,7 @@ import baimuhtar.shop.entity.*;
 import baimuhtar.shop.entity.enums.OrderStatus;
 import baimuhtar.shop.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,8 @@ public class OrderService {
 
 
     public void makeOrder(String address) {
-        List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId());
+        Sort sort = Sort.by(Sort.Order.desc("quantity"));
+        List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId(), sort);
         Order order = new Order();
         order.setUser(userService.getCurrentUser());
         order.setOrder_status(OrderStatus.SEND);
@@ -53,5 +55,8 @@ public class OrderService {
     public List<Order> findOrder() {
         List<Order> orders= orderRepository.findAllByUserId(userService.getCurrentUser().getId());
         return orders;
+    }
+    public List<Order> getOrders() {
+        return orderRepository.findAllByOrderById();
     }
 }

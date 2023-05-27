@@ -6,16 +6,19 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.service.annotation.GetExchange;
 
-@Getter
+
 public enum OrderStatus {
-    AVAILABLE("Доступен"),
-    SEND("Отправлен"),
-    SOLD("Продан"),
-    CANCELED("Отменен");
+    AVAILABLE("ДОСТУПЕН"),
+    SEND("ОТПРАВЛЕН"),
+    SOLD("ПРОДАН"),
+    CANCELED("ОТМЕНЕН");
 
     private final String status;
 
     OrderStatus(String status) {
         this.status = status;
+    }
+    public String getStatus() {
+        return status;
     }
 }

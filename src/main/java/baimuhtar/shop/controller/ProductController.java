@@ -2,6 +2,7 @@ package baimuhtar.shop.controller;
 
 import baimuhtar.shop.entity.*;
 import baimuhtar.shop.repository.*;
+import baimuhtar.shop.service.FeedbackService;
 import baimuhtar.shop.service.ProductService;
 import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private FeedbackRepository feedbackRepository;
+    private FeedbackService feedbackService;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -46,6 +47,7 @@ public class ProductController {
         model.addAttribute("user", user);
         return "product_list";
     }
+
     @GetMapping("/choose_category")
     public String categoryForm(Model model) {
         List<Category> categories = categoryRepository.findAll();
@@ -72,7 +74,7 @@ public class ProductController {
     }
 
     @GetMapping("/update")
-    public String updateProductForm(@RequestParam(required = false) Long productId, Model model){
+    public String updateProductForm(@RequestParam(required = false) Long productId, Model model) {
         Product product = productRepository.findById(productId).orElseThrow();
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("product", product);
@@ -80,10 +82,11 @@ public class ProductController {
 
         return "update_product";
     }
+
     @PostMapping("/update")
     public String updateProduct(
             @RequestParam Long productId, @RequestParam String productName,
-            @RequestParam Integer productPrice, @RequestParam ("option") List<Long> optionsId,
+            @RequestParam Integer productPrice, @RequestParam("option") List<Long> optionsId,
             @RequestParam("value") List<String> values) {
         productService.updateProduct(productId, productName, productPrice, optionsId, values);
         return "redirect:/product/list";
@@ -91,17 +94,17 @@ public class ProductController {
     }
 
     @GetMapping("/show")
-    public String showInfo(@RequestParam Long productId, Feedback feedback,Model model){
+    public String showInfo(@RequestParam Long productId, Model model) {
         Product product = productRepository.findById(productId).orElseThrow();
         List<Value> values = productRepository.findById(productId).orElseThrow().getValues();
-        List<Feedback> feedbacks = feedbackRepository.findAllByProductId(productId);
+        List<Feedback> feedbacks = feedbackService.findAllIsPublishedTrue(productId);
         model.addAttribute("product", product);
         model.addAttribute("values", values);
         model.addAttribute("feedbacks", feedbacks);
-        model.addAttribute("feedback", feedback);
-
+        model.addAttribute("feedback", feedbackService.findFeedback(productId));
         return "show_info";
     }
+
     @GetMapping("/delete")
     public String deleteProduct(@RequestParam Long productId) {
         productService.deleteProduct(productId);

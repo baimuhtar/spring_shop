@@ -13,106 +13,72 @@
 </head>
 <body>
 <header th:replace="navbar"></header>
-<!--<div class="container">-->
-<!--    <form method="get" th:action="@{product/show}">-->
-<!--        <input type="hidden" name="productId" th:value="${product.id}">-->
-<!--        <table class="table">-->
-<!--            <tbody>-->
-<!--            <tr>-->
-<!--                <td><b>Категория</b></td>-->
-<!--                <td><p class="form-control-plaintext" th:text="${product.getCategory.getName}"></p></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><b>Наименование</b></td>-->
-<!--                <td><p class="form-control-plaintext" th:text="${product.getName}"></p></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><b>Цена</b></td>-->
-<!--                <td><p class="form-control-plaintext" th:text="${product.getPrice}"></p></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td><b>Характеристики</b></td>-->
-<!--                <td>-->
-<!--                    <div th:each="value : ${values}">-->
-<!--                        <p class="form-control-plaintext" th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></p>-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </form>-->
-<!--</div>-->
-<!--<div class="container feedback">-->
-<!--    <div class="row">-->
-<!--        <h3 class="mb-3">Ваш отзыв о товаре</h3>-->
-<!--        <form method="post" th:action="@{/feedback}">-->
-<!--            <input type="hidden" name="productId" th:value="${product.id}">-->
-<!--            <table class="table">-->
-<!--                <tbody>-->
-<!--                <tr>-->
-<!--                    <td><label class="form-label">Ваш отзыв</label></td>-->
-<!--                    <td><input type="text" class="form-control" name="textFeedback" th:value="${feedback.textFeedback}" placeholder="Введите ваш отзыв"></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td><label class="form-label">Оценка</label></td>-->
-<!--                    <td><input type="number" class="form-control" name="score" th:value="${feedback.scoreFeedback}" placeholder="Введите оценку"></td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--            <input type="submit" class="btn btn-primary">-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
 <div class="container">
-    <form method="get" th:action="@{product/show}">
-        <input type="hidden" name="productId" th:value="${product.id}">
-        <div class="mb-3">
-            <label class="form-label"><b>Категория</b></label>
-            <p class="form-control-plaintext" th:text="${product.getCategory.getName}"></p>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><b>Наименование</b></label>
-            <p class="form-control-plaintext" th:text="${product.getName}"></p>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><b>Цена</b></label>
-            <p class="form-control-plaintext" th:text="${product.getPrice}"></p>
-        </div>
-        <div class="mb-3">
-            <label class="form-label"><b>Характеристики</b></label>
-            <div th:each="value : ${values}">
-                <p class="form-control-plaintext" th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></p>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="container feedback">
     <div class="row">
-        <h3 class="mb-3">Ваш отзыв о товаре</h3>
-        <form method="post" th:action="@{/feedback}">
-            <input type="hidden" name="productId" th:value="${product.id}">
-            <div class="mb-3">
-                <label class="form-label">Ваш отзыв</label>
-                <input type="text" class="form-control" name="textFeedback" th:value="${feedback.textFeedback}"
-                       placeholder="Введите ваш отзыв">
+        <div class="col-md-6">
+            <h3 th:text="${product.getName()}"></h3>
+            <form method="get" th:action="@{/product/show}">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <div class="mb-3">
+                    <label class="form-label">Характеристики:</label>
+                    <ul class="list-group">
+                        <th:block th:each="value : ${values}">
+                            <li class="list-group-item"
+                                th:text="${value.getOption()} + ' - ' + ${value.getValue()}"></li>
+                        </th:block>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <span class="form-label">Средняя оценка</span>
+                </div>
+            </form>
+            <div class="all_feedbacks">
+                <div class="row">
+                    <form th:action="@{/delete_feedback}" method="get">
+                        <span>Все отзывы о данном товаре:</span>
+                        <div th:each="feedback : ${feedbacks}" th:if="${feedback.isPublished()}">
+                            <input type="hidden" name="feedbackId" th:value="${feedback.id}">
+                            <input type="hidden" name="productId" th:value="${product.id}">
+                            <span th:text="${feedback.getTextFeedback() + ' - ' + feedback.getScoreFeedback()}"></span>
+                            <button th:if="${#authorization.expr('hasRole(''admin'')')}" type="submit">Удалить отзыв
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Отзыв</h3>
+            <form method="post" th:action="@{/leave_feedback}">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <div class="mb-3">
+                    <label class="form-label">Ваш отзыв:</label>
+                    <textarea class="form-control" name="textFeedback"
+                              placeholder="Введите ваш комментарий"
+                              style="resize: vertical"
+                              required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Оценка:</label>
+                    <input type="number" class="form-control" name="score"
+                           th:value="${feedback != null ? feedback.getScoreFeedback() : ''}"
+                           placeholder="Введите оценку"
+                           required min="1" max="5">
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+            </form>
             <div class="mb-3">
-                <label class="form-label">Оценка</label>
-                <input type="number" class="form-control" name="score" th:value="${feedback.scoreFeedback}"
-                       placeholder="Введите оценку">
+                <br>
+                <p>Отзыв на проверке у администратора:</p>
+                <form th:action="@{/delete_feedback}">
+                    <div th:each="feedback : ${feedbacks}" th:if="${!feedback.isPublished()}">
+                        <input type="hidden" name="feedbackId" th:value="${feedback.id}">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <span th:text="${feedback.getTextFeedback() + ' - ' + feedback.getScoreFeedback()}"></span>
+                        <button type="submit">Удалить</button>
+                    </div>
+                </form>
             </div>
-            <input type="submit" class="btn btn-primary">
-        </form>
-    </div>
-</div>
-<div class="all_feedbacks">
-    <div class="row">
-        <span>Все отзывы о данном товаре:</span>
-        <div th:each="feedback : ${feedbacks}">
-            <br>
-            <span th:text="${feedback.getTextFeedback()}"></span>
-            <span> - </span>
-            <span th:text="${feedback.getScoreFeedback()}"></span>
         </div>
     </div>
 </div>

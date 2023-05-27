@@ -52,11 +52,18 @@ public class OrderService {
         return orderRepository.findAllByUserId(userService.getCurrentUser().getId());
     }
 
-    public List<Order> findOrder() {
-        List<Order> orders= orderRepository.findAllByUserId(userService.getCurrentUser().getId());
-        return orders;
+    public List<Order> findOrderByUser() {
+        return orderRepository.findAllByUserId(userService.getCurrentUser().getId());
+    }
+
+    public List<Order> findAllOrders() {
+        return orderRepository.findAll();
     }
     public List<Order> getOrders() {
         return orderRepository.findAllByOrderById();
+    }
+    public void deleteOrder(Long orderId) {
+        orderRepository.deleteById(orderId);
+        orderProductRepository.deleteById(orderId);
     }
 }

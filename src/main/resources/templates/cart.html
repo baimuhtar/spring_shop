@@ -75,7 +75,7 @@
     <div class="d-flex flex-row mb-4">
         <div class="col-md-7">
             <form th:action="@{/make_order}" method="post">
-                <input type="text" name="address" th:value="${address}" placeholder="Адрес доставки">
+                <input type="text" name="address"  th:value="${address}" placeholder="Адрес доставки" required>
                 <button type="submit" class="btn btn-success">Оформить заказ</button>
             </form>
         </div>

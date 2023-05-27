@@ -39,14 +39,8 @@ public class OrderController {
     }
     @GetMapping ("/change_status")
     public String changeOrderStatus(@RequestParam Long orderId, @RequestParam String orderStatus) {
-        Sort sort = Sort.by(Sort.Order.desc("id"));
         OrderStatus status = OrderStatus.valueOf(orderStatus);
         orderService.changeStatus(orderId, status);
-        return "redirect:/order";
-    }
-    @GetMapping("/delete_order")
-    public String deleteOrder(@RequestParam Long orderId) {
-        orderService.deleteOrder(orderId);
-        return "redirect:/order";
+        return "redirect:/show_admin_orders";
     }
 }

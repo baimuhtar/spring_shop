@@ -23,7 +23,7 @@
             <th>Пользователь</th>
             <td>Адрес доставки</td>
             <th>Дата оформления</th>
-            <td>Изменить</td>
+            <td th:if="${#authorization.expr('hasRole(''admin'')')}">Изменить</td>
         </tr>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
             <td th:text="${order.getOrder_status().getStatus()}"></td>
             <td th:text="${order.getUser().getLogin()}"></td>
             <td th:text="${order.getDeliveryAddress()}"></td>
-            <td th:text="${order.getOrderTime()}"></td>
+            <td th:text="${@orderService.getOrderDate(order.getOrderTime())}"></td>
             <td th:if="${#authorization.expr('hasRole(''admin'')')}">
                 <div class="dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button"
@@ -50,12 +50,7 @@
                             ></button>
                         </form>
                     </div>
-                    <form th:action="@{/delete_order}">
-                        <input type="hidden" name="orderId" th:value="${order.getId()}">
-                        <button type="submit">отменить</button>
-                    </form>
                 </div>
-                </form>
             </td>
         </tr>
         </tbody>

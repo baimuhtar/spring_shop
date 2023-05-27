@@ -15,20 +15,18 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping()
-//@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class UserController {
 
     @Autowired
     private UserService userService;
     @Autowired
     private FeedbackService feedbackService;
-    @Autowired
-    private OrderService orderService;
+
 
     @GetMapping("/adduser")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
-        return "user_form";
+        return "registration";
     }
     @PostMapping("/adduser")
     public String saveUser(@ModelAttribute("user") User user){
@@ -40,19 +38,9 @@ public class UserController {
         model.addAttribute("user", userService.getCurrentUser());
         return "profile";
     }
-//    @GetMapping("/user/feedback/")
-//    public String userFeedbackPage(Model model) {
-//        model.addAttribute("feedbacks",feedbackService.getFeedbackByUser());
-//        return "user_feedback";
-//    }
     @GetMapping("/user/feedback/delete")
     public String deleteUserFeedback(@RequestParam Long feedbackId) {
         feedbackService.deleteFeedback(feedbackId);
         return "redirect:/user/feedback";
-    }
-    @GetMapping("/user/orders")
-    public String userOrderPage(Model model) {
-        model.addAttribute("orders", orderService.getOrdersByUser());
-    return "order";
     }
 }

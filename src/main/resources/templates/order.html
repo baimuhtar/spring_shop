@@ -33,7 +33,7 @@
             </td>
             <td th:text="${order.getOrder_status().getStatus()}"></td>
             <td th:text="${order.getDeliveryAddress()}"></td>
-            <td th:text="${order.getOrderTime()}"></td>
+            <td th:text="${@orderService.getOrderDate(order.getOrderTime())}"></td>
         </tr>
         </tbody>
     </table>

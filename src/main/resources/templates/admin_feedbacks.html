@@ -34,7 +34,7 @@
             <tr th:each="feedback : ${feedbacks}">
                 <td th:text="${feedback.getProduct().getName()}"></td>
                 <td th:text="${feedback.getUser().getName()}"></td>
-                <td th:text="${feedback.getPublishedDate()}"></td>
+                <td th:text="${@feedbackService.getFeedbackCreatedTime(feedback.getPublishedDate())}"></td>
                 <td th:text="${feedback.getTextFeedback()}"></td>
                 <td th:text="${feedback.getScoreFeedback()}"></td>
                 <td>

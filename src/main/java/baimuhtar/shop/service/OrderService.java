@@ -39,17 +39,15 @@ public class OrderService {
             orderProductRepository.save(orderProduct);
         }
     }
+
     public void changeStatus(Long orderId, OrderStatus orderStatus) {
         Order order = orderRepository.findById(orderId).orElseThrow();
         order.setOrder_status(orderStatus);
         orderRepository.save(order);
     }
+
     public List<OrderStatus> getAllOrderStatuses() {
         return List.of(OrderStatus.values());
-    }
-
-    public List<Order> getOrdersByUser() {
-        return orderRepository.findAllByUserId(userService.getCurrentUser().getId());
     }
 
     public List<Order> findOrderByUser() {
@@ -57,13 +55,13 @@ public class OrderService {
     }
 
     public List<Order> findAllOrders() {
-        return orderRepository.findAll();
+        return orderRepository.sortedOrderList();
     }
-    public List<Order> getOrders() {
-        return orderRepository.findAllByOrderById();
-    }
-    public void deleteOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
-        orderProductRepository.deleteById(orderId);
+
+    public String getOrderDate(LocalDateTime dateTime) {
+        return dateTime.getHour() + ":" + String.format("%02d", dateTime.getMinute()) + " " +
+                String.format("%02d",dateTime.getDayOfMonth()) + "/" + String.format("%02d",dateTime.getMonthValue()) + "/" +
+                dateTime.getYear();
+
     }
 }

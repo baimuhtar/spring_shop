@@ -32,15 +32,4 @@ public class UserService {
         user.setRole(Role.USER);
         userRepository.save(user);
     }
-
-    public boolean isActive() {
-        return getCurrentUser() != null;
-    }
-    public boolean isAdmin() {
-        if (isActive()) {
-            return getCurrentUser().getRole() == Role.ADMIN;
-        }
-        return true;
-    }
-
 }

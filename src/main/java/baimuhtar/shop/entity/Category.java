@@ -1,13 +1,10 @@
 package baimuhtar.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-
 import java.util.List;
 
 @Getter
@@ -29,5 +26,4 @@ public class Category {
     private List<Product> products;
 
     private String name;
-
 }

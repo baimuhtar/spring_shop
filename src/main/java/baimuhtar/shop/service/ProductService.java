@@ -3,6 +3,7 @@ package baimuhtar.shop.service;
 import baimuhtar.shop.entity.*;
 import baimuhtar.shop.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -67,6 +68,25 @@ public class ProductService {
             value.setValue(values.get(i));
             valueRepository.save(value);
         }
+    }
+    public List<Product> findProductsByCategoryId(Long categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow().getProducts();
+    }
+    public List<Product> findAllProducts() {
+        Sort sort = Sort.by(Sort.Order.by("category"));
+        return productRepository.findAll(sort);
+    }
+    public List<Category> findAllCategories() {
+        return categoryRepository.findAll();
+    }
+    public Category findCategory(Long categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow();
+    }
+    public Product findProduct(Long productId) {
+        return productRepository.findById(productId).orElseThrow();
+    }
+    public List<Value> findValuesByProductId(Long productId) {
+        return productRepository.findById(productId).orElseThrow().getValues();
     }
 
     public void deleteProduct(Long productId) {

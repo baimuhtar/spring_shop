@@ -15,8 +15,7 @@ public class AdminController {
 
     @Autowired
     private FeedbackService feedbackService;
-
-
+    
     @GetMapping("/feedbacks")
     public String checkUserFeedbacks(Model model) {
         model.addAttribute("feedbacks", feedbackService.findAllIsPublishedFalse());
@@ -27,5 +26,4 @@ public class AdminController {
         feedbackService.postFeedback(feedbackId);
         return "redirect:/admin/feedbacks";
     }
-
 }

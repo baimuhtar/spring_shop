@@ -21,7 +21,6 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-
     public void makeOrder(String address) {
         Sort sort = Sort.by(Sort.Order.desc("quantity"));
         List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId(), sort);
@@ -62,5 +61,8 @@ public class OrderService {
         return dateTime.getHour() + ":" + String.format("%02d", dateTime.getMinute()) + " " +
                 String.format("%02d",dateTime.getDayOfMonth()) + "/" + String.format("%02d",dateTime.getMonthValue()) + "/" +
                 dateTime.getYear();
+    }
+    public void deleteCartItemsAfterOrder() {
+        cartItemRepository.deleteAllByUserId(userService.getCurrentUser().getId());
     }
 }

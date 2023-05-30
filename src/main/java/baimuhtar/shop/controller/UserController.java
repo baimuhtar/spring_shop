@@ -22,7 +22,6 @@ public class UserController {
     @Autowired
     private FeedbackService feedbackService;
 
-
     @GetMapping("/adduser")
     public String addUser(Model model) {
         model.addAttribute("user", new User());

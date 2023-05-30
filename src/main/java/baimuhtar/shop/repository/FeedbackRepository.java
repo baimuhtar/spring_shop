@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     List<Feedback> findAllByProductIdAndIsPublishedTrue(Long productId);
+
     List<Feedback> findAllByIsPublishedFalse();
 
     Feedback findByUserIdAndProductId(Long userId, Long productId);

@@ -53,7 +53,6 @@ public class CartItemService {
         }
         cartItemRepository.save(cartItem);
     }
-
     public void removeItemFromCart(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);
     }

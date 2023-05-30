@@ -28,7 +28,7 @@ public class CartItemController {
     private CartItemRepository cartItemRepository;
 
     @Autowired
-    private CartItemService cartService;
+    private CartItemService cartItemService;
 
     @Autowired
     private OrderService orderService;
@@ -39,45 +39,39 @@ public class CartItemController {
         Sort sort = Sort.by(Sort.Order.desc("quantity"));
         List<CartItem> cartItems = cartItemRepository.findAllByUserId(user.getId(), sort);
         model.addAttribute("cartItems", cartItems);
-        model.addAttribute("totalPrice", cartService.getTotalPriceOfProducts(cartItems));
-        model.addAttribute("totalAmount", cartService.getTotalAmount(cartItems));
+        model.addAttribute("totalPrice", cartItemService.getTotalPriceOfProducts(cartItems));
+        model.addAttribute("totalAmount", cartItemService.getTotalAmount(cartItems));
         return "cart";
     }
 
     @PostMapping(path = "/addToCart")
     public String addItemToCart(@RequestParam Long productId) {
-        cartService.addItemToCart(productId);
+        cartItemService.addItemToCart(productId);
         return "redirect:/product/list";
     }
 
     @GetMapping("/increase")
     public String increaseByOne(@RequestParam Long cartItemId) {
-        cartService.increaseByOne(cartItemId);
+        cartItemService.increaseByOne(cartItemId);
         return "redirect:/cart";
     }
 
     @GetMapping("/decrease")
     public String decreaseByOne(@RequestParam Long cartItemId) {
-        cartService.decreaseByOne(cartItemId);
+        cartItemService.decreaseByOne(cartItemId);
         return "redirect:/cart";
     }
 
     @GetMapping("/removeItem")
     public String removeItemFromCart(@RequestParam Long cartItemId) {
-        cartService.removeItemFromCart(cartItemId);
+        cartItemService.removeItemFromCart(cartItemId);
         return "redirect:/cart";
     }
 
     @GetMapping("/removeAllItems")
     public String removeAllItemsFromCart() {
-        cartService.removeAllItemsFromCart(userService.getCurrentUser().getId());
+        cartItemService.removeAllItemsFromCart(userService.getCurrentUser().getId());
         return "redirect:/cart";
-    }
-
-    @PostMapping("/make_order")
-    public String makeOrder(@RequestParam String address) {
-        orderService.makeOrder(address);
-        return "redirect:/order";
     }
 }
 

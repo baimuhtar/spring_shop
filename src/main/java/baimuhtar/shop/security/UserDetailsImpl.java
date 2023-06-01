@@ -2,9 +2,11 @@ package baimuhtar.shop.security;
 
 import baimuhtar.shop.entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
@@ -17,13 +19,16 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                //ROLE_admin
-                return "ROLE_" + user.getRole().getServiceName().toLowerCase();
-            }
-        });
+
+        String roleName = "ROLE_" + user.getRole().getServiceName().toLowerCase();
+        return Collections.singleton(new SimpleGrantedAuthority(roleName));
+//        return List.of(new GrantedAuthority() {
+//            @Override
+//            public String getAuthority() {
+//                //ROLE_admin
+//                return "ROLE_" + user.getRole().getServiceName().toLowerCase();
+//            }
+//        });
     }
 
     @Override

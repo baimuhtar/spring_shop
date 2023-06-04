@@ -33,7 +33,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public String productListPage(@RequestParam(required = false) Long categoryId, Model model) {
-        System.out.println(passwordEncoder.matches("123", "$2a$10$S4nlBDdHZpxwVtIh3q6rDO98IdSVZRvLujL1t.rIuiZQXJOdl8lY6"));
+        System.out.println(passwordEncoder);
 
         List<Product> products;
 

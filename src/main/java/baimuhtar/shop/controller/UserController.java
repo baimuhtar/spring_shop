@@ -22,15 +22,25 @@ public class UserController {
     @Autowired
     private FeedbackService feedbackService;
 
+    @GetMapping (path = "/login")
+    public String loginPage() {
+        return "login_page";
+    }
+
     @GetMapping("/adduser")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
     @PostMapping("/adduser")
-    public String saveUser(@ModelAttribute("user") User user){
-     userService.createUser(user);
-     return "redirect:/product/list";
+    public String saveUser(@ModelAttribute("user") User user, Model model){
+    try {
+        userService.createUser(user);
+        return "redirect:/product/list";
+    } catch (RuntimeException e) {
+        model.addAttribute("error", "Пользователь с данным логином уже существует");
+        return "registration";
+    }
     }
     @GetMapping("/profile")
     public String showUserProfile(Model model) {

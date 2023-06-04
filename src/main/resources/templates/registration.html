@@ -21,6 +21,10 @@
             <input type="text" id="login" th:field="*{login}" class="form-control" required>
         </div>
         <div class="mb-3">
+            <label for="password" class="form-label">Введите пароль</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control" required>
+        </div>
+        <div class="mb-3">
             <label for="name" class="form-label">Имя пользователя</label>
             <input type="text" id="name" th:field="*{name}" class="form-control" required>
         </div>
@@ -29,8 +33,7 @@
             <input type="text" id="surname" th:field="*{surname}" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Введите пароль</label>
-            <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            <span th:if="${error}" class="text-danger" th:text="${error}"></span>
         </div>
         <button type="submit" class="btn btn-outline-secondary">Зарегистрировать</button>
     </form>

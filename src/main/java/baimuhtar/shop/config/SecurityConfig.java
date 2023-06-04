@@ -19,7 +19,12 @@ public class SecurityConfig {
             authorizationConfigurer.anyRequest().permitAll();
         });
         // login
-        http.formLogin().defaultSuccessUrl("/product/list");
+        http
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("login")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/product/list");
         return http.build();
     }
 

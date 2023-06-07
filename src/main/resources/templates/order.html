@@ -13,7 +13,9 @@
 </head>
 <body>
 <header th:replace="navbar"></header>
-<h2>Заказы:</h2>
+<div class="container text-center">
+    <h2>Заказы:</h2>
+</div>
 <div class="container">
     <table class="table table-striped">
         <thead>
@@ -37,7 +39,9 @@
             <td th:text="${order.getDeliveryAddress()}"></td>
             <td th:text="${@orderService.getOrderDate(order.getOrderTime())}"></td>
         </tr>
-        <tr>  <td th:text="${orderPrice}"></td></tr>
+        <tr>
+            <td th:text="${orderPrice}"></td>
+        </tr>
         </tbody>
     </table>
 </div>

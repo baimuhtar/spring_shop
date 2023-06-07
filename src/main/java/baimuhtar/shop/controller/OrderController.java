@@ -27,6 +27,7 @@ public class OrderController {
     public String findOrderByUser(Model model) {
         model.addAttribute("ordersByUser", orderService.findOrderByUser());
         model.addAttribute("statuses", orderService.getAllOrderStatuses());
+        model.addAttribute("orderPrice", orderService.getOrderPrice());
         return "order";
     }
     @GetMapping("/show_admin_orders")

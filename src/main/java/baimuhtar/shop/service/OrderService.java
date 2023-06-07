@@ -59,10 +59,23 @@ public class OrderService {
 
     public String getOrderDate(LocalDateTime dateTime) {
         return dateTime.getHour() + ":" + String.format("%02d", dateTime.getMinute()) + " " +
-                String.format("%02d",dateTime.getDayOfMonth()) + "/" + String.format("%02d",dateTime.getMonthValue()) + "/" +
+                String.format("%02d", dateTime.getDayOfMonth()) + "/" + String.format("%02d", dateTime.getMonthValue()) + "/" +
                 dateTime.getYear();
     }
+
     public void deleteCartItemsAfterOrder() {
         cartItemRepository.deleteAllByUserId(userService.getCurrentUser().getId());
+    }
+
+    public int getOrderPrice() {
+        List<Order> orders = orderRepository.findAllByUserId(userService.getCurrentUser().getId());
+        int price = 0;
+        for (Order order : orders) {
+            List<OrderProduct> orderProducts = orderProductRepository.findAllByOrderId(order.getId());
+            for (OrderProduct orderProduct : orderProducts) {
+                price = price + orderProduct.getProduct().getPrice();
+            }
+        }
+        return price;
     }
 }

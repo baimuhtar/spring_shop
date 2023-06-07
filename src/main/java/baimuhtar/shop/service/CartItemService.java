@@ -80,5 +80,4 @@ public class CartItemService {
         }
         return totalAmount;
     }
-
 }

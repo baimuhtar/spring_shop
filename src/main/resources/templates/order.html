@@ -27,14 +27,17 @@
         <tbody>
         <tr th:each="order : ${ordersByUser}">
             <td>
-                <span th:each="orderProduct : ${order.getOrderProducts()}"
-                      th:text="${orderProduct.getProduct().getName()}">
+                <span th:each="orderProduct : ${order.getOrderProducts()}">
+                    <span th:text="${orderProduct.getProduct().getName() + ' - '}"></span>
+                    <span th:text="${orderProduct.getQuantity() + 'шт.'}"></span>
+                    <br>
                 </span>
             </td>
             <td th:text="${order.getOrder_status().getStatus()}"></td>
             <td th:text="${order.getDeliveryAddress()}"></td>
             <td th:text="${@orderService.getOrderDate(order.getOrderTime())}"></td>
         </tr>
+        <tr>  <td th:text="${orderPrice}"></td></tr>
         </tbody>
     </table>
 </div>

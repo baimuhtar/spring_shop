@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping
@@ -27,7 +29,7 @@ public class OrderController {
     public String findOrderByUser(Model model) {
         model.addAttribute("ordersByUser", orderService.findOrderByUser());
         model.addAttribute("statuses", orderService.getAllOrderStatuses());
-        model.addAttribute("orderPrice", orderService.getOrderPrice());
+        model.addAttribute("orderPrices", orderService.getOrderPrice());
         return "order";
     }
     @GetMapping("/show_admin_orders")

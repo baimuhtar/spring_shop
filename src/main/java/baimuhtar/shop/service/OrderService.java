@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,15 +68,17 @@ public class OrderService {
         cartItemRepository.deleteAllByUserId(userService.getCurrentUser().getId());
     }
 
-    public int getOrderPrice() {
+    public List<Integer> getOrderPrice() {
         List<Order> orders = orderRepository.findAllByUserId(userService.getCurrentUser().getId());
-        int price = 0;
+        List<Integer> prices = new ArrayList<>();
         for (Order order : orders) {
+            int price = 0;
             List<OrderProduct> orderProducts = orderProductRepository.findAllByOrderId(order.getId());
             for (OrderProduct orderProduct : orderProducts) {
                 price = price + orderProduct.getProduct().getPrice();
             }
+            prices.add(price);
         }
-        return price;
+        return prices;
     }
 }

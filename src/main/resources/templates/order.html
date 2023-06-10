@@ -22,25 +22,24 @@
         <tr>
             <th>Товары</th>
             <th>Статус</th>
-            <td>Адрес доставки</td>
+            <th>Адрес доставки</th>
             <th>Дата оформления</th>
+            <th>Цена заказа (тг)</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order : ${ordersByUser}">
+        <tr th:each="order, iterStat : ${ordersByUser}">
             <td>
                 <span th:each="orderProduct : ${order.getOrderProducts()}">
                     <span th:text="${orderProduct.getProduct().getName() + ' - '}"></span>
-                    <span th:text="${orderProduct.getQuantity() + 'шт.'}"></span>
+                    <span th:text="${orderProduct.getQuantity() + ' шт.'}"></span>
                     <br>
                 </span>
             </td>
             <td th:text="${order.getOrder_status().getStatus()}"></td>
             <td th:text="${order.getDeliveryAddress()}"></td>
             <td th:text="${@orderService.getOrderDate(order.getOrderTime())}"></td>
-        </tr>
-        <tr>
-            <td th:text="${orderPrice}"></td>
+            <td th:text="${orderPrices[iterStat.index]}"></td>
         </tr>
         </tbody>
     </table>

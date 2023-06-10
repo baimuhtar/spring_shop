@@ -21,7 +21,6 @@ public class OrderService {
     private OrderProductRepository orderProductRepository;
     @Autowired
     private OrderRepository orderRepository;
-
     public void makeOrder(String address) {
         Sort sort = Sort.by(Sort.Order.desc("quantity"));
         List<CartItem> cartItems = cartItemRepository.findAllByUserId(userService.getCurrentUser().getId(), sort);
@@ -68,17 +67,16 @@ public class OrderService {
         cartItemRepository.deleteAllByUserId(userService.getCurrentUser().getId());
     }
 
-    public List<Integer> getOrderPrice() {
-        List<Order> orders = orderRepository.findAllByUserId(userService.getCurrentUser().getId());
-        List<Integer> prices = new ArrayList<>();
-        for (Order order : orders) {
-            int price = 0;
-            List<OrderProduct> orderProducts = orderProductRepository.findAllByOrderId(order.getId());
-            for (OrderProduct orderProduct : orderProducts) {
-                price = price + orderProduct.getProduct().getPrice();
-            }
-            prices.add(price);
+    public Order findOrder() {
+        return orderRepository.findByUserId(userService.getCurrentUser().getId());
+    }
+
+    public int getOrderPrice(Order order) {
+        int price = 0;
+        List<OrderProduct> orderProducts = order.getOrderProducts();
+        for (OrderProduct orderProduct : orderProducts) {
+            price = orderProduct.getProduct().getPrice() * orderProduct.getQuantity() ;
         }
-        return prices;
+        return price;
     }
 }

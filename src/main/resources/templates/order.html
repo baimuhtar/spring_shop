@@ -28,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order, iterStat : ${ordersByUser}">
+        <tr th:each="order : ${ordersByUser}">
             <td>
                 <span th:each="orderProduct : ${order.getOrderProducts()}">
                     <span th:text="${orderProduct.getProduct().getName() + ' - '}"></span>
@@ -39,7 +39,7 @@
             <td th:text="${order.getOrder_status().getStatus()}"></td>
             <td th:text="${order.getDeliveryAddress()}"></td>
             <td th:text="${@orderService.getOrderDate(order.getOrderTime())}"></td>
-            <td th:text="${orderPrices[iterStat.index]}"></td>
+            <td th:text="${@orderService.getOrderPrice(order)}"></td>
         </tr>
         </tbody>
     </table>

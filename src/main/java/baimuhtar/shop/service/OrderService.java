@@ -75,7 +75,7 @@ public class OrderService {
         int price = 0;
         List<OrderProduct> orderProducts = order.getOrderProducts();
         for (OrderProduct orderProduct : orderProducts) {
-            price = orderProduct.getProduct().getPrice() * orderProduct.getQuantity() ;
+            price = price + orderProduct.getProduct().getPrice() * orderProduct.getQuantity() ;
         }
         return price;
     }

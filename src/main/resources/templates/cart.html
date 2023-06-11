@@ -13,7 +13,7 @@
 <body>
 <header th:replace="navbar"></header>
 <div class="container text-center">
-<h2>Корзина:</h2>
+    <h2>Корзина:</h2>
 </div>
 <div class="container">
     <table class="table table-striped">
@@ -42,7 +42,7 @@
                             <input type="hidden" name="cartItemId" th:value="${cartItem.getId()}">
                         </form>
                         <form th:action="@{/removeItem}" th:method="get">
-                            <button type="submit" class="btn btn-danger btn-sm mx-1">Удалить из корзины</button>
+                            <button type="submit" class="btn btn-danger btn-sm mx-1">Удалить</button>
                             <input type="hidden" name="cartItemId" th:value="${cartItem.getId()}">
                         </form>
                     </div>
@@ -55,9 +55,11 @@
             <td colspan="1" class="text-right"><strong>Итого:</strong></td>
             <td th:text="${totalAmount}"></td>
             <td th:text="${totalPrice}"></td>
-            <td><form th:action="@{/removeAllItems}" th:method="get">
-                <button type="submit" class="btn btn-danger btn-sm mx-1">Удалить все товары</button>
-            </form></td>
+            <td>
+                <form th:action="@{/removeAllItems}" th:method="get">
+                    <button type="submit" class="btn btn-danger btn-sm mx-1">Удалить все товары</button>
+                </form>
+            </td>
         </tr>
         </tfoot>
     </table>
@@ -77,7 +79,7 @@
     <div class="d-flex flex-row mb-4">
         <div class="col-md-7">
             <form th:action="@{/make_order}" method="post">
-                <input type="text" name="address"  th:value="${address}" placeholder="Адрес доставки" required>
+                <input type="text" name="address" th:value="${address}" placeholder="Адрес доставки" required>
                 <button type="submit" class="btn btn-success">Оформить заказ</button>
             </form>
         </div>

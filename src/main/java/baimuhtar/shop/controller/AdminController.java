@@ -15,14 +15,15 @@ public class AdminController {
 
     @Autowired
     private FeedbackService feedbackService;
-    
+
     @GetMapping("/feedbacks")
     public String checkUserFeedbacks(Model model) {
         model.addAttribute("feedbacks", feedbackService.findAllIsPublishedFalse());
         return "admin_feedbacks";
     }
+
     @GetMapping("/post_feedback")
-    public String postFeedback(@RequestParam Long feedbackId){
+    public String postFeedback(@RequestParam Long feedbackId) {
         feedbackService.postFeedback(feedbackId);
         return "redirect:/admin/feedbacks";
     }

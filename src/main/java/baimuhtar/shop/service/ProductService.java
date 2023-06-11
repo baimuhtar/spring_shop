@@ -35,7 +35,6 @@ public class ProductService {
                                  List<Long> optionsId, List<String> values) {
 
         Category category = categoryRepository.findById(categoryId).orElseThrow();
-
         Product product = new Product();
         product.setCategory(category);
         product.setName(productName);
@@ -54,7 +53,6 @@ public class ProductService {
 
     public void updateProduct(Long productId, String productName, Integer productPrice,
                               List<Long> optionsId, List<String> values) {
-
         Product product = productRepository.findById(productId).orElseThrow();
         if (productName != null) product.setName(productName);
         if (productPrice != null) product.setPrice(productPrice);
@@ -69,22 +67,28 @@ public class ProductService {
             valueRepository.save(value);
         }
     }
+
     public List<Product> findProductsByCategoryId(Long categoryId) {
         return categoryRepository.findById(categoryId).orElseThrow().getProducts();
     }
+
     public List<Product> findAllProducts() {
         Sort sort = Sort.by(Sort.Order.by("category"));
         return productRepository.findAll(sort);
     }
+
     public List<Category> findAllCategories() {
         return categoryRepository.findAll();
     }
+
     public Category findCategory(Long categoryId) {
         return categoryRepository.findById(categoryId).orElseThrow();
     }
+
     public Product findProduct(Long productId) {
         return productRepository.findById(productId).orElseThrow();
     }
+
     public List<Value> findValuesByProductId(Long productId) {
         return productRepository.findById(productId).orElseThrow().getValues();
     }

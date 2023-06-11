@@ -22,8 +22,6 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private UserRepository userRepository;
 
     @PostMapping("/make_order")
     public String makeOrder(@RequestParam String address) {

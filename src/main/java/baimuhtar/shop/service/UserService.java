@@ -26,9 +26,10 @@ public class UserService {
         Authentication authentication = context.getAuthentication();
         return userRepository.findByLogin(authentication.getName()).orElse(null);
     }
+
     public void createUser(User user) {
-       if (userRepository.existsByLogin(user.getLogin())) {
-           throw new RuntimeException("Пользователь с таким логином уже существует");
+        if (userRepository.existsByLogin(user.getLogin())) {
+            throw new RuntimeException("Пользователь с таким логином уже существует");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRegistrationDate(LocalDateTime.now());

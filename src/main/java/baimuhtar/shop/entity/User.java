@@ -36,7 +36,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Feedback> feedbacks;
 
-    public User(){
+    public User() {
     }
-
 }

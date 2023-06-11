@@ -25,9 +25,4 @@ public class Option {
     private List<Value> values;
 
     private String name;
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }

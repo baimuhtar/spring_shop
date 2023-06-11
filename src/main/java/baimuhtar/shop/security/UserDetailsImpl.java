@@ -16,19 +16,11 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         String roleName = "ROLE_" + user.getRole().getServiceName().toLowerCase();
         return Collections.singleton(new SimpleGrantedAuthority(roleName));
-//        return List.of(new GrantedAuthority() {
-//            @Override
-//            public String getAuthority() {
-//                //ROLE_admin
-//                return "ROLE_" + user.getRole().getServiceName().toLowerCase();
-//            }
-//        });
     }
 
     @Override

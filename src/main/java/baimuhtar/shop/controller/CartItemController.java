@@ -30,9 +30,6 @@ public class CartItemController {
     @Autowired
     private CartItemService cartItemService;
 
-    @Autowired
-    private OrderService orderService;
-
     @GetMapping(path = "/cart")
     String showUserCart(Model model) {
         User user = userService.getCurrentUser();

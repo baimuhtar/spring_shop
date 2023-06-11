@@ -13,12 +13,10 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeHttpRequests(authorizationConfigurer -> {
-//            authorizationConfigurer
-//                    .requestMatchers("/product/list")
-//                    .authenticated();
+
             authorizationConfigurer.anyRequest().permitAll();
         });
-        // login
+
         http
                 .formLogin()
                 .loginPage("/login")

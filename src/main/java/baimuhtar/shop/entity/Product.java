@@ -39,7 +39,4 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<OrderProduct> orderProducts;
 
-//    @ManyToOne()
-//    @JoinColumn(name = "cartItemId")
-//    private CartItem cartItem;
 }

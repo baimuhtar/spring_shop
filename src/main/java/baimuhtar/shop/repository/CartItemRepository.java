@@ -8,11 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-
     CartItem findByUserIdAndProductId(Long userId, Long productId);
-
     List<CartItem> findAllByUserId(Long userId, Sort sort);
     @Transactional
     void deleteAllByUserId(Long userId);
-
 }

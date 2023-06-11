@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @GetMapping (path = "/login")
+    @GetMapping(path = "/login")
     public String loginPage() {
         return "login_page";
     }
@@ -32,21 +32,24 @@ public class UserController {
         model.addAttribute("user", new User());
         return "registration";
     }
+
     @PostMapping("/adduser")
-    public String saveUser(@ModelAttribute("user") User user, Model model){
-    try {
-        userService.createUser(user);
-        return "redirect:/adduser";
-    } catch (RuntimeException e) {
-        model.addAttribute("error", "Пользователь с данным логином уже существует");
-        return "registration";
+    public String saveUser(@ModelAttribute("user") User user, Model model) {
+        try {
+            userService.createUser(user);
+            return "redirect:/adduser";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", "Пользователь с данным логином уже существует");
+            return "registration";
+        }
     }
-    }
+
     @GetMapping("/profile")
     public String showUserProfile(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
         return "profile";
     }
+
     @GetMapping("/user/feedback/delete")
     public String deleteUserFeedback(@RequestParam Long feedbackId) {
         feedbackService.deleteFeedback(feedbackId);

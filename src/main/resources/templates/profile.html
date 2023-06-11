@@ -13,10 +13,14 @@
 <body>
 <header th:replace="navbar"></header>
 <div class="container">
-    <span>Имя пользователя: </span><p th:text="${user.name}"></p>
-    <span>Фамилия пользователя: </span><p th:text="${user.getSurname()}"></p>
-    <span>Логин пользователя: </span><p th:text="${user.getLogin()}"></p>
-    <span>Роль пользователя: </span><p th:text="${user.getRole()}"></p>
+    <span>Имя пользователя: </span>
+    <p th:text="${user.name}"></p>
+    <span>Фамилия пользователя: </span>
+    <p th:text="${user.getSurname()}"></p>
+    <span>Логин пользователя: </span>
+    <p th:text="${user.getLogin()}"></p>
+    <span>Роль пользователя: </span>
+    <p th:text="${user.getRole()}"></p>
 </div>
 </body>
 </html>

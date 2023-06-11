@@ -31,11 +31,13 @@
                 <td th:text="${product.getPrice()}"></td>
                 <td>
                     <div class="d-flex justify-content-center gap-2">
-                        <a th:if="${#authorization.expr('hasRole(''admin'')')}" th:href="@{/product/update(productId=${product.id})}" class="btn btn-sm btn-primary">
+                        <a th:if="${#authorization.expr('hasRole(''admin'')')}"
+                           th:href="@{/product/update(productId=${product.id})}" class="btn btn-sm btn-primary">
                             <i class="fas fa-edit"></i>
                             Изменить
                         </a>
-                        <a th:if="${#authorization.expr('hasRole(''admin'')')}" th:href="@{/product/delete(productId=${product.id})}" class="btn btn-sm btn-danger"
+                        <a th:if="${#authorization.expr('hasRole(''admin'')')}"
+                           th:href="@{/product/delete(productId=${product.id})}" class="btn btn-sm btn-danger"
                            onclick="return confirm('Вы уверены, что хотите удалить этот продукт?')">
                             <i class="fas fa-trash"></i>
                             Удалить
@@ -53,8 +55,9 @@
             </tbody>
         </table>
     </div>
-    <div class="text-center mt-4" >
-        <a th:if="${#authorization.expr('hasRole(''admin'')')}" th:href="@{/product/choose_category}" class="btn btn-success">
+    <div class="text-center mt-4">
+        <a th:if="${#authorization.expr('hasRole(''admin'')')}" th:href="@{/product/choose_category}"
+           class="btn btn-success">
             <i class="fas fa-plus"></i>Создать товар</a>
         <a th:if="${#authorization.expr('hasRole(''admin'')')}" th:href="@{/adduser}" class="btn btn-info">
             <i class="fas fa-plus"></i>Создать пользователя</a>

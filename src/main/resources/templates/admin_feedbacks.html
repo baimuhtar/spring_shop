@@ -37,7 +37,7 @@
                 <td th:text="${@feedbackService.getFeedbackCreatedTime(feedback.getPublishedDate())}"></td>
                 <td th:text="${feedback.getTextFeedback()}"></td>
                 <td th:text="${feedback.getScoreFeedback()}"></td>
-                <td>
+                <td class="d-flex align-items-center">
                     <form method="get" th:action="@{/delete_feedback}">
                         <input type="hidden" name="productId" th:value="${feedback.getProduct().getId()}">
                         <input type="hidden" name="feedbackId" th:value="${feedback.getId()}">
@@ -45,7 +45,7 @@
                     </form>
                     <form th:action="@{/admin/post_feedback(feedbackId=${feedback.getId()})}">
                         <input type="hidden" name="feedbackId" th:value="${feedback.getId()}">
-                        <button type="submit" class="btn btn-primary">Опубликовать</button>
+                        <button type="submit" class="btn btn-primary ml-2">Опубликовать</button>
                     </form>
                 </td>
             </tr>

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -25,4 +26,9 @@ public class Option {
     private List<Value> values;
 
     private String name;
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

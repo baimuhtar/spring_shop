@@ -36,7 +36,7 @@ public class UserController {
     public String saveUser(@ModelAttribute("user") User user, Model model){
     try {
         userService.createUser(user);
-        return "redirect:/product/list";
+        return "redirect:/adduser";
     } catch (RuntimeException e) {
         model.addAttribute("error", "Пользователь с данным логином уже существует");
         return "registration";

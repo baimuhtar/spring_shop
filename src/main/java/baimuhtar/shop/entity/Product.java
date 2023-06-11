@@ -1,8 +1,6 @@
 package baimuhtar.shop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -2,13 +2,10 @@ package baimuhtar.shop.service;
 
 import baimuhtar.shop.entity.Feedback;
 import baimuhtar.shop.entity.Product;
-import baimuhtar.shop.entity.User;
 import baimuhtar.shop.repository.FeedbackRepository;
 import baimuhtar.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

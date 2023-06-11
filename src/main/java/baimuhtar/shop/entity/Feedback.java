@@ -1,14 +1,9 @@
 package baimuhtar.shop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
-
-import java.security.PrivilegedAction;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter

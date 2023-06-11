@@ -4,7 +4,6 @@ import baimuhtar.shop.entity.CartItem;
 import baimuhtar.shop.entity.User;
 import baimuhtar.shop.repository.CartItemRepository;
 import baimuhtar.shop.service.CartItemService;
-import baimuhtar.shop.service.OrderService;
 import baimuhtar.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

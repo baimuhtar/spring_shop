@@ -13,7 +13,6 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeHttpRequests(authorizationConfigurer -> {
-
             authorizationConfigurer.anyRequest().permitAll();
         });
 

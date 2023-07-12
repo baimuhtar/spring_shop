@@ -35,9 +35,9 @@
             <button type="submit" class="btn btn-outline-secondary">Зарегистрировать</button>
         </div>
         <div class="mx-auto text-center mb-3">
-            <a class="btn btn-danger" th:href="@{/login}">Назад</a>
+            <a th:if="${#authorization.expr('isAuthenticated()')}" class="btn btn-danger" th:href="@{/product/list}">Назад</a>
+            <a th:if="${#authorization.expr('isAnonymous()')}" class="btn btn-danger" th:href="@{/login}">Назад</a>
         </div>
-
     </form>
 </div>
 </body>

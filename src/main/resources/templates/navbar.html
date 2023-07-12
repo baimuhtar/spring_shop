@@ -31,9 +31,8 @@
                         <li><a class="dropdown-item" th:href="@{/cart}">Моя корзина</a></li>
                         <li th:if="${#authorization.expr('hasRole(''admin'')')}">
                             <a class="dropdown-item" th:href="@{/show_admin_orders}">Заказы пользователей</a></li>
-                        <li th:if="${#authorization.expr('hasRole(''admin'')')}"><a class="dropdown-item"
-                                                                                    th:href="@{/admin/feedbacks}">Отзывы
-                            пользователей</a></li>
+                        <li th:if="${#authorization.expr('hasRole(''admin'')')}">
+                            <a class="dropdown-item" th:href="@{/admin/feedbacks}">Отзывы пользователей</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

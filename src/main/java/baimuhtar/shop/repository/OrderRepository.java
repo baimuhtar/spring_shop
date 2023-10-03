@@ -10,5 +10,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o from Order o order by o.id asc")
     List<Order> sortedOrderList();
-
+// что то новое
 }
